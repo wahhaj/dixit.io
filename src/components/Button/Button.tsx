@@ -1,15 +1,19 @@
 import React, { PureComponent } from "react"
 
-export type ButtonType = "button" | "submit"
-
-export interface ButtonProps {
+interface IButtonProps {
   label: string
-  type?: ButtonType
+
   disabled?: boolean
+  type?: "button" | "submit"
   onClick?: () => void
 }
 
-class Button extends PureComponent<ButtonProps, {}> {
+class Button extends PureComponent<IButtonProps, {}> {
+  static defaultProps: Partial<IButtonProps> = {
+    disabled: false,
+    type: "button",
+  }
+
   render() {
     let baseClassName = "bg-yellow-dark text-black font-bold py-2 px-4 rounded"
     let className = `${baseClassName} ${
