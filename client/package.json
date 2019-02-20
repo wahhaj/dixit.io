@@ -3,18 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "23.3.9",
-    "@types/node": "10.12.2",
-    "@types/react": "16.4.18",
-    "@types/react-dom": "16.0.9",
+    "@types/jest": "24.0.6",
+    "@types/node": "11.9.4",
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.2",
     "@types/react-router-dom": "^4.3.1",
-    "firebase": "^5.5.7",
-    "formik": "^1.3.1",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "formik": "^1.5.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
-    "typescript": "3.1.6"
+    "react-scripts": "2.1.5",
+    "typescript": "3.3.3"
   },
   "scripts": {
     "tailwind:css": "tailwind build src/styles/tailwind.src.css -c tailwind.js -o src/styles/tailwind.css",
@@ -33,9 +32,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "tailwindcss": "^0.7.2"
-  },
-  "resolutions": {
-    "node-pre-gyp": "^0.11.0"
+    "tailwindcss": "^0.7.4"
   }
 }
