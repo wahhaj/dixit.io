@@ -10,4 +10,4 @@ ENV PATH $APP_HOME/node_modules/.bin:$PATH
 COPY ["package.json", "yarn.lock", "./"]
 RUN yarn install
 
-EXPOSE 3200
+EXPOSE 3300
