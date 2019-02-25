@@ -183,4 +183,61 @@ defmodule DixitServer.GameTest do
       assert %Ecto.Changeset{} = Game.change_player(player)
     end
   end
+
+  describe "rounds" do
+    alias DixitServer.Game.Round
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def round_fixture(attrs \\ %{}) do
+      {:ok, round} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Game.create_round()
+
+      round
+    end
+
+    test "list_rounds/0 returns all rounds" do
+      round = round_fixture()
+      assert Game.list_rounds() == [round]
+    end
+
+    test "get_round!/1 returns the round with given id" do
+      round = round_fixture()
+      assert Game.get_round!(round.id) == round
+    end
+
+    test "create_round/1 with valid data creates a round" do
+      assert {:ok, %Round{} = round} = Game.create_round(@valid_attrs)
+    end
+
+    test "create_round/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Game.create_round(@invalid_attrs)
+    end
+
+    test "update_round/2 with valid data updates the round" do
+      round = round_fixture()
+      assert {:ok, %Round{} = round} = Game.update_round(round, @update_attrs)
+    end
+
+    test "update_round/2 with invalid data returns error changeset" do
+      round = round_fixture()
+      assert {:error, %Ecto.Changeset{}} = Game.update_round(round, @invalid_attrs)
+      assert round == Game.get_round!(round.id)
+    end
+
+    test "delete_round/1 deletes the round" do
+      round = round_fixture()
+      assert {:ok, %Round{}} = Game.delete_round(round)
+      assert_raise Ecto.NoResultsError, fn -> Game.get_round!(round.id) end
+    end
+
+    test "change_round/1 returns a round changeset" do
+      round = round_fixture()
+      assert %Ecto.Changeset{} = Game.change_round(round)
+    end
+  end
 end
