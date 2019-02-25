@@ -240,4 +240,63 @@ defmodule DixitServer.GameTest do
       assert %Ecto.Changeset{} = Game.change_round(round)
     end
   end
+
+  describe "round_cards" do
+    alias DixitServer.Game.RoundCard
+
+    @valid_attrs %{votes: 42}
+    @update_attrs %{votes: 43}
+    @invalid_attrs %{votes: nil}
+
+    def round_card_fixture(attrs \\ %{}) do
+      {:ok, round_card} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Game.create_round_card()
+
+      round_card
+    end
+
+    test "list_round_cards/0 returns all round_cards" do
+      round_card = round_card_fixture()
+      assert Game.list_round_cards() == [round_card]
+    end
+
+    test "get_round_card!/1 returns the round_card with given id" do
+      round_card = round_card_fixture()
+      assert Game.get_round_card!(round_card.id) == round_card
+    end
+
+    test "create_round_card/1 with valid data creates a round_card" do
+      assert {:ok, %RoundCard{} = round_card} = Game.create_round_card(@valid_attrs)
+      assert round_card.votes == 42
+    end
+
+    test "create_round_card/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Game.create_round_card(@invalid_attrs)
+    end
+
+    test "update_round_card/2 with valid data updates the round_card" do
+      round_card = round_card_fixture()
+      assert {:ok, %RoundCard{} = round_card} = Game.update_round_card(round_card, @update_attrs)
+      assert round_card.votes == 43
+    end
+
+    test "update_round_card/2 with invalid data returns error changeset" do
+      round_card = round_card_fixture()
+      assert {:error, %Ecto.Changeset{}} = Game.update_round_card(round_card, @invalid_attrs)
+      assert round_card == Game.get_round_card!(round_card.id)
+    end
+
+    test "delete_round_card/1 deletes the round_card" do
+      round_card = round_card_fixture()
+      assert {:ok, %RoundCard{}} = Game.delete_round_card(round_card)
+      assert_raise Ecto.NoResultsError, fn -> Game.get_round_card!(round_card.id) end
+    end
+
+    test "change_round_card/1 returns a round_card changeset" do
+      round_card = round_card_fixture()
+      assert %Ecto.Changeset{} = Game.change_round_card(round_card)
+    end
+  end
 end

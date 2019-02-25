@@ -389,4 +389,100 @@ defmodule DixitServer.Game do
   def change_round(%Round{} = round) do
     Round.changeset(round, %{})
   end
+
+  alias DixitServer.Game.RoundCard
+
+  @doc """
+  Returns the list of round_cards.
+
+  ## Examples
+
+      iex> list_round_cards()
+      [%RoundCard{}, ...]
+
+  """
+  def list_round_cards do
+    Repo.all(RoundCard)
+  end
+
+  @doc """
+  Gets a single round_card.
+
+  Raises `Ecto.NoResultsError` if the Round card does not exist.
+
+  ## Examples
+
+      iex> get_round_card!(123)
+      %RoundCard{}
+
+      iex> get_round_card!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_round_card!(id), do: Repo.get!(RoundCard, id)
+
+  @doc """
+  Creates a round_card.
+
+  ## Examples
+
+      iex> create_round_card(%{field: value})
+      {:ok, %RoundCard{}}
+
+      iex> create_round_card(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_round_card(attrs \\ %{}) do
+    %RoundCard{}
+    |> RoundCard.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a round_card.
+
+  ## Examples
+
+      iex> update_round_card(round_card, %{field: new_value})
+      {:ok, %RoundCard{}}
+
+      iex> update_round_card(round_card, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_round_card(%RoundCard{} = round_card, attrs) do
+    round_card
+    |> RoundCard.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a RoundCard.
+
+  ## Examples
+
+      iex> delete_round_card(round_card)
+      {:ok, %RoundCard{}}
+
+      iex> delete_round_card(round_card)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_round_card(%RoundCard{} = round_card) do
+    Repo.delete(round_card)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking round_card changes.
+
+  ## Examples
+
+      iex> change_round_card(round_card)
+      %Ecto.Changeset{source: %RoundCard{}}
+
+  """
+  def change_round_card(%RoundCard{} = round_card) do
+    RoundCard.changeset(round_card, %{})
+  end
 end
