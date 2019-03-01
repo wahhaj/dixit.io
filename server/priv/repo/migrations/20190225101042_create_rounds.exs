@@ -1,4 +1,4 @@
-defmodule DixitServer.Repo.Migrations.CreateRounds do
+defmodule Dixit.Repo.Migrations.CreateRounds do
   use Ecto.Migration
 
   def change do

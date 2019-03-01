@@ -1,12 +1,12 @@
-defmodule DixitServer.Game do
+defmodule Dixit.Game do
   @moduledoc """
   The Game context.
   """
 
   import Ecto.Query, warn: false
-  alias DixitServer.Repo
+  alias Dixit.Repo
 
-  alias DixitServer.Game.Card
+  alias Dixit.Game.Card
 
   @doc """
   Returns the list of cards.
@@ -102,7 +102,7 @@ defmodule DixitServer.Game do
     Card.changeset(card, %{})
   end
 
-  alias DixitServer.Game.Room
+  alias Dixit.Game.Room
 
   @doc """
   Returns the list of rooms.
@@ -198,7 +198,7 @@ defmodule DixitServer.Game do
     Room.changeset(room, %{})
   end
 
-  alias DixitServer.Game.Player
+  alias Dixit.Game.Player
 
   @doc """
   Returns the list of players.
@@ -294,7 +294,7 @@ defmodule DixitServer.Game do
     Player.changeset(player, %{})
   end
 
-  alias DixitServer.Game.Round
+  alias Dixit.Game.Round
 
   @doc """
   Returns the list of rounds.
@@ -390,7 +390,7 @@ defmodule DixitServer.Game do
     Round.changeset(round, %{})
   end
 
-  alias DixitServer.Game.RoundCard
+  alias Dixit.Game.RoundCard
 
   @doc """
   Returns the list of round_cards.

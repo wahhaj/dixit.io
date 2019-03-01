@@ -1,4 +1,4 @@
-# DixitServer
+# Dixit
 
 To start your Phoenix server:
 

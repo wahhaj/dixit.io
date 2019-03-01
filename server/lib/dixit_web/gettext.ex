@@ -1,11 +1,11 @@
-defmodule DixitServerWeb.Gettext do
+defmodule DixitWeb.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 
   By using [Gettext](https://hexdocs.pm/gettext),
   your module gains a set of macros for translations, for example:
 
-      import DixitServerWeb.Gettext
+      import DixitWeb.Gettext
 
       # Simple translation
       gettext("Here is the string to translate")
@@ -20,5 +20,5 @@ defmodule DixitServerWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :dixit_server
+  use Gettext, otp_app: :dixit
 end

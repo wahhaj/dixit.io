@@ -1,4 +1,4 @@
-defmodule DixitServer.Game.Player do
+defmodule Dixit.Game.Player do
   use Ecto.Schema
   import Ecto.Changeset
 

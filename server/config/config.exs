@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :dixit_server,
-  ecto_repos: [DixitServer.Repo]
+config :dixit,
+  ecto_repos: [Dixit.Repo]
 
 # Configures the endpoint
-config :dixit_server, DixitServerWeb.Endpoint,
+config :dixit, DixitWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "0TshaCgaHsn71UM+S0AdHQAXtDTgoI85K2RIirFGGC5s8Nqq7qlXS68YzJMHbPSU",
-  render_errors: [view: DixitServerWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: DixitServer.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: DixitWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: Dixit.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -1,19 +1,9 @@
-defmodule DixitServerWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :dixit_server
+defmodule DixitWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :dixit
 
-  socket "/socket", DixitServerWeb.UserSocket,
+  socket "/socket", DixitWeb.UserSocket,
     websocket: true,
     longpoll: false
-
-  # Serve at "/" the static files from "priv/static" directory.
-  #
-  # You should set gzip to true if you are running phx.digest
-  # when deploying your static files in production.
-  plug Plug.Static,
-    at: "/",
-    from: :dixit_server,
-    gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -25,9 +15,9 @@ defmodule DixitServerWeb.Endpoint do
   plug Plug.Logger
 
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
     pass: ["*/*"],
-    json_decoder: Phoenix.json_library()
+    json_decoder: Jason
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -37,8 +27,11 @@ defmodule DixitServerWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_dixit_server_key",
+    key: "_dixit_key",
     signing_salt: "OqpOejYF"
 
-  plug DixitServerWeb.Router
+  plug DixitWeb.Router
+
+  plug Absinthe.Plug,
+    schema: Dixit.Schema
 end

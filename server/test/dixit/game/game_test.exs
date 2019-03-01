@@ -1,10 +1,10 @@
-defmodule DixitServer.GameTest do
-  use DixitServer.DataCase
+defmodule Dixit.GameTest do
+  use Dixit.DataCase
 
-  alias DixitServer.Game
+  alias Dixit.Game
 
   describe "cards" do
-    alias DixitServer.Game.Card
+    alias Dixit.Game.Card
 
     @valid_attrs %{image_url: "some image_url"}
     @update_attrs %{image_url: "some updated image_url"}
@@ -63,7 +63,7 @@ defmodule DixitServer.GameTest do
   end
 
   describe "rooms" do
-    alias DixitServer.Game.Room
+    alias Dixit.Game.Room
 
     @valid_attrs %{code: "some code", state: "some state"}
     @update_attrs %{code: "some updated code", state: "some updated state"}
@@ -124,7 +124,7 @@ defmodule DixitServer.GameTest do
   end
 
   describe "players" do
-    alias DixitServer.Game.Player
+    alias Dixit.Game.Player
 
     @valid_attrs %{name: "some name", score: 42}
     @update_attrs %{name: "some updated name", score: 43}
@@ -185,7 +185,7 @@ defmodule DixitServer.GameTest do
   end
 
   describe "rounds" do
-    alias DixitServer.Game.Round
+    alias Dixit.Game.Round
 
     @valid_attrs %{}
     @update_attrs %{}
@@ -242,7 +242,7 @@ defmodule DixitServer.GameTest do
   end
 
   describe "round_cards" do
-    alias DixitServer.Game.RoundCard
+    alias Dixit.Game.RoundCard
 
     @valid_attrs %{votes: 42}
     @update_attrs %{votes: 43}

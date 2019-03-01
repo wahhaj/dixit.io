@@ -1,4 +1,4 @@
-defmodule DixitServer.Game.Round do
+defmodule Dixit.Game.Round do
   use Ecto.Schema
   import Ecto.Changeset
 

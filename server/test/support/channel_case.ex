@@ -1,4 +1,4 @@
-defmodule DixitServerWeb.ChannelCase do
+defmodule DixitWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule DixitServerWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint DixitServerWeb.Endpoint
+      @endpoint DixitWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(DixitServer.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Dixit.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(DixitServer.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Dixit.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,4 +1,4 @@
-defmodule DixitServer.Game.Room do
+defmodule Dixit.Game.Room do
   use Ecto.Schema
   import Ecto.Changeset
 

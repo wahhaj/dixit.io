@@ -1,4 +1,4 @@
-defmodule DixitServer.Application do
+defmodule Dixit.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,23 +9,23 @@ defmodule DixitServer.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      DixitServer.Repo,
+      Dixit.Repo,
       # Start the endpoint when the application starts
-      DixitServerWeb.Endpoint
-      # Starts a worker by calling: DixitServer.Worker.start_link(arg)
-      # {DixitServer.Worker, arg},
+      DixitWeb.Endpoint
+      # Starts a worker by calling: Dixit.Worker.start_link(arg)
+      # {Dixit.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: DixitServer.Supervisor]
+    opts = [strategy: :one_for_one, name: Dixit.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    DixitServerWeb.Endpoint.config_change(changed, removed)
+    DixitWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

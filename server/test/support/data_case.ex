@@ -1,4 +1,4 @@
-defmodule DixitServer.DataCase do
+defmodule Dixit.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule DixitServer.DataCase do
 
   using do
     quote do
-      alias DixitServer.Repo
+      alias Dixit.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import DixitServer.DataCase
+      import Dixit.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(DixitServer.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Dixit.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(DixitServer.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Dixit.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,12 +1,12 @@
-defmodule DixitServerWeb do
+defmodule DixitWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use DixitServerWeb, :controller
-      use DixitServerWeb, :view
+      use DixitWeb, :controller
+      use DixitWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,26 +19,26 @@ defmodule DixitServerWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: DixitServerWeb
+      use Phoenix.Controller, namespace: DixitWeb
 
       import Plug.Conn
-      import DixitServerWeb.Gettext
-      alias DixitServerWeb.Router.Helpers, as: Routes
+      import DixitWeb.Gettext
+      alias DixitWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/dixit_server_web/templates",
-        namespace: DixitServerWeb
+        root: "lib/dixit_web/templates",
+        namespace: DixitWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      import DixitServerWeb.ErrorHelpers
-      import DixitServerWeb.Gettext
-      alias DixitServerWeb.Router.Helpers, as: Routes
+      import DixitWeb.ErrorHelpers
+      import DixitWeb.Gettext
+      alias DixitWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -53,7 +53,7 @@ defmodule DixitServerWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import DixitServerWeb.Gettext
+      import DixitWeb.Gettext
     end
   end
 

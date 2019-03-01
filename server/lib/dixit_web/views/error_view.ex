@@ -1,5 +1,5 @@
-defmodule DixitServerWeb.ErrorView do
-  use DixitServerWeb, :view
+defmodule DixitWeb.ErrorView do
+  use DixitWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
