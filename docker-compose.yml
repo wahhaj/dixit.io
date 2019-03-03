@@ -19,7 +19,7 @@ services:
     env_file: ./server/.env.docker.development
     stdin_open: true
     ports:
-      - '3300:3300'
+      - '3200:3200'
     tty: true
     volumes:
       - ./server:/usr/src/dixit_server
@@ -29,7 +29,7 @@ services:
     command: yarn start
     env_file: ./client/.env.docker.development
     ports:
-      - '3200:3200'
+      - '3300:3300'
     volumes:
       - ./client:/usr/src/dixit_client
       - /usr/src/dixit_client/node_modules
