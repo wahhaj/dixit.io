@@ -33,5 +33,5 @@ defmodule DixitWeb.Endpoint do
   plug DixitWeb.Router
 
   plug Absinthe.Plug,
-    schema: Dixit.Schema
+    schema: DixitWeb.Schema
 end

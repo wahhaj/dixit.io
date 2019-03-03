@@ -9,3 +9,8 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Dixit.Game.Card
+alias Dixit.Repo
+
+%Card {image_url: "https://elixir-lang.org/images/logo/logo.png"} |> Repo.insert!
