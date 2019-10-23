@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react"
 
 const App: React.FC = () => {
   return (
@@ -7,7 +7,7 @@ const App: React.FC = () => {
         <h1 className="text-center text-4xl">Dixit</h1>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
