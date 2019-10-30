@@ -15,6 +15,9 @@ const play = (G: IG, ctx: IGameCtx, playCard: number) => {
     })
 
     if (ctx.playerID === ctx.currentPlayer) {
+      // currentPlayer always plays the first card of the turn,
+      // after which every other player enters the `play` stage to play their cards
+      // and once they've all played cards, they enter the `vote stage
       ctx.events.setActivePlayers({
         others: "play",
         moveLimit: ctx.numPlayers === 3 ? 2 : 1,
