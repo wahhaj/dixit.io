@@ -24,3 +24,4 @@ declare module "boardgame.io/core" {
 
   export const INVALID_MOVE: string
 }
+declare module "boardgame.io/server"
