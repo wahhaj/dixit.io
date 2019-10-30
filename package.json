@@ -17,8 +17,12 @@
     "typescript": "3.6.4"
   },
   "scripts": {
-    "start": "postcss src/tailwind.src.css -o src/tailwind.css && react-scripts start",
-    "build": "postcss src/tailwind.src.css -o src/tailwind.css --env production && react-scripts build",
+    "start": "yarn app:start & nodemon -- --config nodemon.json",
+    "build": "yarn app:build && yarn server:build",
+    "app:start": "postcss src/tailwind.src.css -o src/tailwind.css && react-scripts start -p 4200",
+    "app:build": "postcss src/tailwind.src.css -o src/tailwind.css --env production && react-scripts build",
+    "server:start": "node build/server/server.js",
+    "server:build": "tsc --project tsconfig.server.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
