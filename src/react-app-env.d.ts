@@ -16,6 +16,7 @@ declare module "boardgame.io/core" {
     playOrder: string[]
     playOrderPos: number
     activePlayers: Record<number, string | null> | null
+    gameover: any
 
     random: Random
     events: Events
