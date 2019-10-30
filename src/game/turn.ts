@@ -39,7 +39,7 @@ const refillHands = (G: IG, { numPlayers }: IGameCtx) => {
     const replacementCardsNeeded = numCardsInHand - hand.length
 
     if (G.deck.length < replacementCardsNeeded) {
-      G.deck = [...G.discard]
+      G.deck = random.Shuffle([...G.discard])
       G.discard = []
     }
 
