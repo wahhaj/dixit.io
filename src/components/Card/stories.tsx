@@ -8,6 +8,8 @@ export default {
 
 export const one = () => <Card id={0} />
 
+export const back = () => <Card />
+
 export const all = () => (
   <div className="flex flex-wrap">
     {Array.from(Array(DECK_SIZE), (e, i) => (
