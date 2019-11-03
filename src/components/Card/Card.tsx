@@ -9,9 +9,9 @@ type CardProps = {
 }
 
 const Card: React.FC<CardProps> = ({ id, className }) => {
-  const url = id !== null && id !== undefined ? `${CARD_IMAGE_URL_PREFIX}${id.toString().padStart(4, "0")}.png` : back
+  const url = id !== undefined ? `${CARD_IMAGE_URL_PREFIX}${id.toString().padStart(4, "0")}.png` : back
 
-  return <img src={url} alt={`Dixit card ${id}`} className={`${styles.Card} ${className} rounded-lg`}></img>
+  return <img src={url} alt={`Dixit card ${id}`} className={`${styles.Card} ${className} rounded-lg shadow`}></img>
 }
 
 export default Card
