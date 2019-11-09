@@ -1,10 +1,9 @@
 import { IPlayer, IG } from "./typings"
 import { IGameCtx } from "boardgame.io/core"
-
-const NUM_CARDS = 30
+import { DECK_SIZE } from "../config"
 
 export default function setup({ numPlayers, random }: IGameCtx): IG {
-  const deck: number[] = random.Shuffle(Array.from(Array(NUM_CARDS), (e, i) => i))
+  const deck: number[] = random.Shuffle(Array.from(Array(DECK_SIZE), (e, i) => i))
 
   const numCardsInHand = numPlayers === 3 ? 7 : 6
   const players: IPlayer[] = Array.from(Array(numPlayers), (e, i) => ({
