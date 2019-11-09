@@ -1,12 +1,12 @@
 import React from "react"
 
-interface IButtonProps {
+type ButtonProps = {
   disabled?: boolean
   type?: "button" | "submit"
   onClick?: () => void
 }
 
-const Button: React.FC<IButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
       type={props.type}

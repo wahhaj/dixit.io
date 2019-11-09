@@ -15,7 +15,7 @@ declare module "boardgame.io/core" {
     currentPlayer: string
     playOrder: string[]
     playOrderPos: number
-    activePlayers: Record<number, string | null> | null
+    activePlayers: Record<string, string> | null
     gameover: any
 
     random: Random
@@ -24,4 +24,5 @@ declare module "boardgame.io/core" {
 
   export const INVALID_MOVE: string
 }
+declare module "boardgame.io/react"
 declare module "boardgame.io/server"
