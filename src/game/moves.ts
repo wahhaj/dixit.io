@@ -1,16 +1,17 @@
 import { IG } from "./typings"
 import { INVALID_MOVE, IGameCtx } from "boardgame.io/core"
 
-const play = (G: IG, ctx: IGameCtx, playCard: number) => {
+const play = (G: IG, ctx: IGameCtx, cardIndexInHand: number) => {
   const player = G.players[+ctx.playerID]
-  const cardIndexInHand = player.hand.indexOf(playCard)
+  const cardInHand = player.hand[cardIndexInHand]
+  const maxPlayedCards = ctx.numPlayers === 3 ? 5 : ctx.numPlayers
 
-  if (cardIndexInHand !== -1) {
+  if (cardInHand) {
     player.hand.splice(cardIndexInHand, 1)
 
     G.playedCards.push({
       player: +ctx.playerID,
-      card: playCard,
+      card: cardInHand,
       votes: [],
     })
 
@@ -33,7 +34,7 @@ const play = (G: IG, ctx: IGameCtx, playCard: number) => {
 }
 
 const vote = (G: IG, ctx: IGameCtx, voteForCard: number) => {
-  const playedCard = G.playedCards.find(({ card }) => card === voteForCard)
+  const playedCard = G.playedCards[voteForCard]
 
   if (playedCard && playedCard.player !== +ctx.playerID) {
     playedCard.votes.push(+ctx.playerID)
