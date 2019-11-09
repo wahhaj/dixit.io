@@ -15,6 +15,12 @@ const play = (G: IG, ctx: IGameCtx, cardIndexInHand: number) => {
       votes: [],
     })
 
+    if (G.playedCards.length === maxPlayedCards) {
+      // when all players have played their cards,
+      // shuffle the playedCards
+      G.playedCards = ctx.random.Shuffle(G.playedCards)
+    }
+
     if (ctx.playerID === ctx.currentPlayer) {
       // currentPlayer always plays the first card of the turn,
       // after which every other player enters the `play` stage to play their cards
