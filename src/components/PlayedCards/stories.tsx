@@ -1,10 +1,9 @@
 import React from "react"
 import PlayedCards from "./PlayedCards"
-import { IPlayedCard } from "game/typings"
-import { IGameCtx } from "boardgame.io/core"
 
 export default {
   title: "PlayedCards",
+  component: PlayedCards,
 }
 
 export const empty = () => <PlayedCards playedCards={[]} activePlayers={{}} />
@@ -30,18 +29,29 @@ export const shown = () => (
     playedCards={[
       {
         player: 0,
-        card: 1,
+        card: 0,
         votes: [],
       },
       {
         player: 1,
+        card: 1,
+        votes: [],
+      },
+      {
+        player: 2,
         card: 2,
+        votes: [],
+      },
+      {
+        player: 3,
+        card: 3,
         votes: [],
       },
     ]}
     activePlayers={{
       "1": "vote",
       "2": "vote",
+      "3": "vote",
     }}
   />
 )
