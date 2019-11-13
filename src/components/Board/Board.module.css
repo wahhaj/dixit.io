@@ -1,0 +1,46 @@
+.board {
+  height: 100vh;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: 110px 1fr;
+  grid-template-areas:
+    "header"
+    "body";
+}
+
+.header {
+  grid-area: header;
+}
+
+.scores,
+.played,
+.hand {
+  grid-area: body;
+}
+
+@media only screen and (min-width: 768px) {
+  .board {
+    grid-template-columns: 180px 1fr;
+    grid-template-rows: 110px repeat(2, calc((100vh - 110px) / 2));
+    grid-template-areas:
+      "header header"
+      "scores played"
+      "scores hand";
+  }
+  .scores {
+    grid-area: scores;
+  }
+  .played {
+    grid-area: played;
+  }
+  .hand {
+    grid-area: hand;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .board {
+    grid-template-columns: 380px 1fr;
+  }
+}
