@@ -7,11 +7,11 @@ type ScoreBoardProps = {
 }
 
 const Scores: React.FC<ScoreBoardProps> = ({ players }) => (
-  <div className="flex flex-col">
+  <React.Fragment>
     {players.map(({ name, score }, i) => (
       <Score name={name} score={score} color={i} key={i} />
     ))}
-  </div>
+  </React.Fragment>
 )
 
 export default Scores

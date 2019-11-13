@@ -7,7 +7,7 @@ type HandProps = {
 }
 
 const Hand: React.FC<HandProps> = ({ hand }) => (
-  <div className="flex flex-wrap justify-around">
+  <div className="flex flex-wrap justify-center">
     {hand.map((card, i) => (
       <Card id={card} key={i} className="m-1" />
     ))}
