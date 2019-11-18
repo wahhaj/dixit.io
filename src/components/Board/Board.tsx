@@ -4,6 +4,7 @@ import { IGameCtx } from "boardgame.io/core"
 import Navbar from "./Navbar"
 import Status from "components/Status"
 import Section from "./Section"
+import CardResizer from "components/CardResizer"
 import PlayedCards from "components/PlayedCards"
 import Hand from "components/Hand"
 import ScoreBoard from "components/ScoreBoard"
@@ -37,12 +38,16 @@ const Board: React.FC<BoardProps> = ({ G, ctx, playerID }) => {
         <ScoreBoard players={G.players} />
       </Section>
 
-      <Section title="Played Cards" type="played" currentView={view} className={`p-4 ${styles.played}`}>
-        <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} />
+      <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
+        <CardResizer numCards={G.playedCards.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
+          <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} />
+        </CardResizer>
       </Section>
 
-      <Section title="Your Hand" type="hand" currentView={view} className={`p-4 ${styles.hand}`}>
-        <Hand hand={player.hand} />
+      <Section title="Your Hand" type="hand" currentView={view} className={`${styles.hand}`}>
+        <CardResizer numCards={player.hand.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
+          <Hand hand={player.hand} />
+        </CardResizer>
       </Section>
     </div>
   )
