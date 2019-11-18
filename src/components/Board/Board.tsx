@@ -34,7 +34,7 @@ const Board: React.FC<BoardProps> = ({ G, ctx, playerID }) => {
         <Status playerID={+playerID} activePlayers={ctx.activePlayers} players={G.players} />
       </div>
 
-      <Section title="Player List" type="scores" currentView={view} className={`p-4 shadow ${styles.scores}`}>
+      <Section title="Player List" type="scores" currentView={view} className={`shadow ${styles.scores}`}>
         <ScoreBoard players={G.players} />
       </Section>
 
