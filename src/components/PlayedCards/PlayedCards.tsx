@@ -6,17 +6,27 @@ import { IGameCtx } from "boardgame.io/core"
 type PlayedCardProps = {
   playedCards: IPlayedCard[]
   activePlayers: IGameCtx["activePlayers"]
+  width?: number
+  height?: number
 }
 
-const Hand: React.FC<PlayedCardProps> = ({ playedCards, activePlayers }) => {
-  const shouldShowCards = activePlayers && Object.values(activePlayers).every((state) => state === "vote")
+const Hand: React.FC<PlayedCardProps> = ({ playedCards, activePlayers, width, height }) => {
+  const shouldShowCards = Object.values(activePlayers).every((state) => state === "vote")
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {playedCards.map((pc, i) =>
-        shouldShowCards ? <Card id={pc.card} key={i} className="mx-2" /> : <Card key={i} className="mx-2" />,
+    <React.Fragment>
+      {playedCards.length ? (
+        playedCards.map((pc, i) => {
+          if (shouldShowCards) {
+            return <Card id={pc.card} key={i} className="mx-2" width={width} height={height} />
+          } else {
+            return <Card key={i} className="mx-2" width={width} height={height} />
+          }
+        })
+      ) : (
+        <p>Looks like nothing here.</p>
       )}
-    </div>
+    </React.Fragment>
   )
 }
 
