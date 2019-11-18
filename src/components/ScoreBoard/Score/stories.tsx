@@ -29,8 +29,8 @@ export const colors = () => (
 )
 
 export const narrow = () => (
-  <div style={{ width: "180px" }}>
-    <Score name={"01234567890"} score={15} color={0} />
+  <div style={{ width: "164px" }}>
+    <Score name={"Dixitter"} score={15} color={0} />
   </div>
 )
 

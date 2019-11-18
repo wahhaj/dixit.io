@@ -7,19 +7,24 @@ type ScoreProps = {
 }
 
 const Scores: React.FC<ScoreProps> = ({ color, name, score }) => {
-  const barStyle = {
-    width: `${(score / 30) * 100}%`,
-    transition: "width 0.2s",
-  }
   const colorName = ["blue", "red", "yellow", "green", "orange", "pink"][color] || "gray"
 
   return (
-    <div className="flex items-stretch">
-      <div className="w-1/5">{name}</div>
-      <div className={`border border-${colorName}-500 bg-${colorName}-100 flex-1 my-1 relative`}>
-        <span className={`absolute bg-${colorName}-400 w-0 h-full pin-l pin-t`} style={barStyle}></span>
+    <div className="items-stretch mb-4">
+      <div className={`text-${colorName}-500 flex justify-between`}>
+        <span>{name}</span>
+        <span>{score}</span>
       </div>
-      <div>{score}</div>
+
+      <div className={`h-4 relative border border-${colorName}-500 rounded bg-${colorName}-100`}>
+        <span
+          className={`h-full w-0 absolute pin-l pin-t bg-${colorName}-400 rounded-l-sm`}
+          style={{
+            width: `${(score / 30) * 100}%`,
+            transition: "width 0.2s",
+          }}
+        ></span>
+      </div>
     </div>
   )
 }
