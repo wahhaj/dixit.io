@@ -3,17 +3,30 @@ import Card from "components/Card"
 import { IPlayer } from "game/typings"
 
 type HandProps = {
-  hand: IPlayer["hand"]
-  width?: number
-  height?: number
+  cards: IPlayer["hand"]
+  canPlay: boolean
+
+  cardWidth?: number
+  cardHeight?: number
+  currentCard?: number
+  onCardClick?: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Hand: React.FC<HandProps> = ({ hand, width, height }) => {
+const Hand: React.FC<HandProps> = ({ cards, cardWidth, cardHeight, onCardClick, currentCard }) => {
   return (
     <React.Fragment>
-      {hand.map((card, i) => (
-        <Card id={card} key={i} className="m-1" width={width} height={height} />
-      ))}
+      {cards
+        .filter((card, i) => currentCard === undefined || currentCard === i)
+        .map((card, i) => (
+          <Card
+            id={card}
+            key={i}
+            className="m-1"
+            width={cardWidth}
+            height={cardHeight}
+            onClick={() => onCardClick && onCardClick(i)}
+          />
+        ))}
     </React.Fragment>
   )
 }
