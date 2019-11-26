@@ -10,19 +10,19 @@ type CardProps = {
   onClick?: () => void
 }
 
-const Card: React.FC<CardProps> = ({ id, className, width = 180, height = 270, onClick }) => {
+const Card: React.FC<CardProps> = ({ id, className, width, height, onClick }) => {
   const url = id !== undefined ? `${CARD_IMAGE_URL_PREFIX}${id.toString().padStart(4, "0")}.png` : back
+  const hasExplicitSize = width !== undefined && height !== undefined
 
   return (
     <img
       src={url}
       alt={`Dixit card ${id}`}
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        objectFit: "cover",
+        width: hasExplicitSize ? `${width}px` : "unset",
+        height: hasExplicitSize ? `${height}px` : "100%",
       }}
-      className={`${className} rounded-lg shadow`}
+      className={`${className} rounded-lg shadow object-cover max-w-full max-h-full`}
       onClick={onClick}
     ></img>
   )
