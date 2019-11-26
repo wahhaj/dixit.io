@@ -1,7 +1,7 @@
 import React, { cloneElement, ReactElement } from "react"
 import ReactCSSTransitionGroup from "react-addons-css-transition-group"
-import "./Modal.css"
 import Button from "components/Button"
+import "./animations.css"
 
 type ModalProps = {
   currentCard: number
