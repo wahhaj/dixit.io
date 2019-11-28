@@ -66,7 +66,7 @@ const resetTurnState = (G: IG) => {
 }
 
 export default {
-  activePlayers: { player: "play" },
+  activePlayers: { currentPlayer: "play" },
 
   stages: {
     play: {
