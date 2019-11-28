@@ -39,7 +39,6 @@ const getSize: (containerWidth: number, containerHeight: number, numCards: numbe
     }
   }
 
-  console.log(w, h, size)
   return size
 }
 
@@ -78,7 +77,7 @@ const CardContainer: React.FC<CardContainerProps> = ({ className, numCards, chil
 
       {isOpen ? (
         <Portal>
-          <Modal numCards={numCards} currentCard={currentCard} setCurrentCard={setCurrentCard}>
+          <Modal numCards={numCards} currentCard={currentCard} setCurrentCard={setCurrentCard} setIsOpen={setIsOpen}>
             {children}
           </Modal>
         </Portal>
