@@ -23,9 +23,12 @@ type BoardProps = {
   credentials: string | null
 }
 
-const Board: React.FC<BoardProps> = ({ G, ctx, playerID }) => {
+const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
   const player = G.players[+playerID]
-  const [view, setView] = useState("played")
+  const [view, setView] = useState("hand")
+
+  const canPlay = ctx.activePlayers[+playerID] === "play"
+  const canVote = ctx.activePlayers[+playerID] === "vote"
 
   return (
     <div className={styles.board}>
@@ -40,13 +43,13 @@ const Board: React.FC<BoardProps> = ({ G, ctx, playerID }) => {
 
       <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
         <CardContainer numCards={G.playedCards.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
-          <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} />
+          <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} canVote={canVote} />
         </CardContainer>
       </Section>
 
       <Section title="Your Hand" type="hand" currentView={view} className={`${styles.hand}`}>
         <CardContainer numCards={player.hand.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
-          <Hand cards={player.hand} canPlay={canPlay} />
+          <Hand cards={player.hand} canPlay={canPlay} playCard={moves.play} />
         </CardContainer>
       </Section>
     </div>
