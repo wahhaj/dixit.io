@@ -14,9 +14,9 @@ const Button: React.FC<ButtonProps> = (props) => {
       type={props.type}
       disabled={props.disabled}
       onClick={props.onClick}
-      className={`flex items-center justify-center py-1 px-2 rounded border border-transparent focus:outline-none ${
-        props.className
-      } ${props.disabled ? "opacity-50 cursor-not-allowed" : "hover:shadow"}`}
+      className={`py-1 px-2 rounded border border-transparent focus:outline-none ${props.className} ${
+        props.disabled ? "opacity-50 cursor-not-allowed" : "hover:shadow"
+      }`}
       style={props.style}
     >
       {props.children}
