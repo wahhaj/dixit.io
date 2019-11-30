@@ -4,6 +4,7 @@ import { SocketIO } from "boardgame.io/multiplayer"
 import { Dixit } from "game"
 import Home from "components/Home"
 import Board from "components/Board"
+import Lobby from "components/Lobby"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 const Game = Client({ game: Dixit, numPlayers: 3, board: Board, multiplayer: SocketIO({ server: "localhost:8000" }) })
@@ -15,8 +16,10 @@ const Game = Client({ game: Dixit, numPlayers: 3, board: Board, multiplayer: Soc
 const App: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact={true} path={"/"} component={Home} />
+      <Route path="/:roomID" component={Lobby} />
+      <Route path="/" component={Home} />
     </Switch>
   </BrowserRouter>
 )
+
 export default App
