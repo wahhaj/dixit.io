@@ -6,27 +6,42 @@ import Button from "components/Button"
 type HandProps = {
   cards: IPlayer["hand"]
   canPlay: boolean
-  playCard?: (card: number) => void
+  onPlay?: (card: number) => void
 
   cardWidth?: number
   cardHeight?: number
-  currentCard?: number
+  focusCard?: number
   onCardClick?: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Hand: React.FC<HandProps> = ({ cards, cardWidth, cardHeight, onCardClick, currentCard, canPlay, playCard }) => {
+const Hand: React.FC<HandProps> = (props) => {
+  const inModal = typeof props.focusCard === "number"
+
   return (
     <React.Fragment>
-      {cards
-        .filter((card, i) => currentCard === undefined || currentCard === i)
+      {props.cards
+        .filter((card, i) => !inModal || props.focusCard === i)
         .map((card, i) => (
-          <Card id={card} key={i} width={cardWidth} height={cardHeight} onClick={() => onCardClick && onCardClick(i)} />
+          <Card
+            id={card}
+            key={i}
+            width={props.cardWidth}
+            height={props.cardHeight}
+            onClick={() => props.onCardClick && props.onCardClick(i)}
+          />
         ))}
 
-      {currentCard !== undefined && canPlay && playCard !== undefined ? (
-        <Button className="bg-primary text-dark text-xl pointer-events-auto" onClick={() => playCard(currentCard)}>
-          Play
-        </Button>
+      {inModal ? (
+        props.canPlay ? (
+          <Button
+            className="text-xl text-dark bg-primary m-4"
+            onClick={() => props.onPlay && props.onPlay(props.focusCard!)}
+          >
+            Play
+          </Button>
+        ) : (
+          <div className="m-4"></div>
+        )
       ) : null}
     </React.Fragment>
   )

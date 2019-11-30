@@ -49,7 +49,7 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
 
       <Section title="Your Hand" type="hand" currentView={view} className={`${styles.hand}`}>
         <CardContainer numCards={player.hand.length}>
-          <Hand cards={player.hand} canPlay={canPlay} playCard={moves.play} />
+          <Hand cards={player.hand} canPlay={canPlay} onPlay={moves.play} />
         </CardContainer>
       </Section>
     </div>

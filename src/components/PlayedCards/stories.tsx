@@ -6,10 +6,11 @@ export default {
   component: PlayedCards,
 }
 
-export const empty = () => <PlayedCards playedCards={[]} activePlayers={{}} />
+export const empty = () => <PlayedCards canVote={false} playedCards={[]} activePlayers={{}} />
 
 export const hidden = () => (
   <PlayedCards
+    canVote={false}
     playedCards={[
       {
         player: 0,
@@ -26,6 +27,7 @@ export const hidden = () => (
 
 export const shown = () => (
   <PlayedCards
+    canVote={false}
     playedCards={[
       {
         player: 0,

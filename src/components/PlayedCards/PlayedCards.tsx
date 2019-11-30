@@ -6,24 +6,38 @@ import { IGameCtx } from "boardgame.io/core"
 type PlayedCardProps = {
   playedCards: IPlayedCard[]
   activePlayers: IGameCtx["activePlayers"]
-  canVote?: boolean
-  width?: number
-  height?: number
+  canVote: boolean
+  onVote?: (card: number) => void
+
+  cardWidth?: number
+  cardHeight?: number
+  focusCard?: number
+  onCardClick?: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Hand: React.FC<PlayedCardProps> = ({ playedCards, activePlayers, width, height, canVote }) => {
-  const shouldShowCards = Object.values(activePlayers).every((state) => state === "vote")
+const PlayedCards: React.FC<PlayedCardProps> = (props) => {
+  const inModal = typeof props.focusCard === "number"
+  const shouldRevealCards = Object.values(props.activePlayers).every((state) => state === "vote")
 
   return (
     <React.Fragment>
-      {playedCards.length ? (
-        playedCards.map((pc, i) => {
-          if (shouldShowCards) {
-            return <Card id={pc.card} key={i} width={width} height={height} />
-          } else {
-            return <Card key={i} width={props.cardWidth} height={props.cardHeight} />
-          }
-        })
+      {props.playedCards.length ? (
+        props.playedCards
+          .filter((card, i) => !inModal || props.focusCard === i)
+          .map((pc, i) =>
+            shouldRevealCards ? (
+              <React.Fragment key={i}>
+                <Card
+                  id={pc.card}
+                  width={props.cardWidth}
+                  height={props.cardHeight}
+                  onClick={() => props.onCardClick && props.onCardClick(i)}
+                />
+              </React.Fragment>
+            ) : (
+              <Card key={i} width={props.cardWidth} height={props.cardHeight} />
+            ),
+          )
       ) : (
         <p>Looks like nothing here.</p>
       )}
@@ -31,4 +45,4 @@ const Hand: React.FC<PlayedCardProps> = ({ playedCards, activePlayers, width, he
   )
 }
 
-export default Hand
+export default PlayedCards
