@@ -25,7 +25,7 @@ type BoardProps = {
 
 const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
   const player = G.players[+playerID]
-  const [view, setView] = useState("hand")
+  const [view, setView] = useState("played")
 
   const canPlay = ctx.activePlayers[+playerID] === "play"
   const canVote = ctx.activePlayers[+playerID] === "vote"
@@ -43,7 +43,13 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
 
       <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
         <CardContainer numCards={G.playedCards.length}>
-          <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} canVote={canVote} />
+          <PlayedCards
+            playedCards={G.playedCards}
+            activePlayers={ctx.activePlayers}
+            playerID={+playerID}
+            canVote={canVote}
+            onVote={moves.vote}
+          />
         </CardContainer>
       </Section>
 
