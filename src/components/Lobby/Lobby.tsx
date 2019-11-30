@@ -20,10 +20,10 @@ const Lobby: React.FC<LobbyProps> = ({ match }) => {
       </nav>
 
       <div className="text-dark p-8">
-        <h1 className="font-bold text-2xl text-center mb-2">Welcome to Dixit.io!</h1>
+        <h1 className="font-bold text-2xl text-center mb-6">Welcome to Dixit.io!</h1>
 
         <div className="mx-auto max-w-2xl mb-16 flex flex-col items-center">
-          <h2 className="text-xl">Current room: {match.params.roomID}</h2>
+          <h2 className="text-xl leading-none">Current room: {match.params.roomID}</h2>
         </div>
       </div>
     </div>

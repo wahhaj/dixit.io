@@ -11,12 +11,12 @@ const Home: React.FC = () => {
       </nav>
 
       <div className="text-dark p-8">
-        <h1 className="font-bold text-2xl text-center mb-2">Welcome to Dixit.io!</h1>
+        <h1 className="font-bold text-2xl text-center mb-6">Welcome to Dixit.io!</h1>
 
         <div className="mx-auto max-w-2xl mb-16 flex flex-col items-center">
-          <h2 className="text-xl">Create a new room</h2>
+          <h2 className="text-xl leading-none">Create a new room</h2>
 
-          <hr className="w-48 max-w-full my-2 mx-auto" />
+          <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
           <div className="relative mb-2">
             <select className="appearance-none bg-gray-200 border border-gray-200 py-1 pl-2 pr-8 rounded focus:outline-none">
@@ -36,9 +36,9 @@ const Home: React.FC = () => {
         </div>
 
         <div className="mx-auto max-w-2xl flex flex-col items-center">
-          <h2 className="text-xl">Join existing room</h2>
+          <h2 className="text-xl leading-none">Join existing room</h2>
 
-          <hr className="w-48 max-w-full my-2 mx-auto" />
+          <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
           <Input id="room-id" label="Room ID" placeholder="Abc1234" />
 
