@@ -42,13 +42,13 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
       </Section>
 
       <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
-        <CardContainer numCards={G.playedCards.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
+        <CardContainer numCards={G.playedCards.length}>
           <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} canVote={canVote} />
         </CardContainer>
       </Section>
 
       <Section title="Your Hand" type="hand" currentView={view} className={`${styles.hand}`}>
-        <CardContainer numCards={player.hand.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
+        <CardContainer numCards={player.hand.length}>
           <Hand cards={player.hand} canPlay={canPlay} playCard={moves.play} />
         </CardContainer>
       </Section>

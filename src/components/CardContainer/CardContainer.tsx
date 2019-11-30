@@ -5,7 +5,6 @@ import Modal from "components/CardContainer/Modal"
 
 type CardContainerProps = {
   numCards: number
-  className?: string
   children: React.ReactElement
 }
 
@@ -14,10 +13,10 @@ const getSize: (containerWidth: number, containerHeight: number, numCards: numbe
   h,
   n,
 ) => {
-  const hwRatio = 1.5
+  const hwRatio = 1.5 // height to width ratio
+  const margin = 16 // margin in pixel around each card
   const minW = 60
-  const minH = 90
-  const margin = 16
+  const minH = minW * hwRatio
 
   const size = {
     cardWidth: 120,
@@ -42,14 +41,15 @@ const getSize: (containerWidth: number, containerHeight: number, numCards: numbe
   return size
 }
 
-const CardContainer: React.FC<CardContainerProps> = ({ className, numCards, children }) => {
-  const [currentCard, setCurrentCard] = useState(2)
-  const [isOpen, setIsOpen] = useState(false)
+const CardContainer: React.FC<CardContainerProps> = ({ numCards, children }) => {
+  const [focusCard, setFocusCard] = useState(0)
+  const [isModalOpen, setModalOpen] = useState(false)
 
+  // Registers event listener to close Modal on escape key press
   useEffect(() => {
     function handleKeyDown({ keyCode }: KeyboardEvent) {
-      if (keyCode === 27 && isOpen) {
-        setIsOpen(false)
+      if (keyCode === 27 && isModalOpen) {
+        setModalOpen(false)
       }
     }
 
@@ -60,24 +60,31 @@ const CardContainer: React.FC<CardContainerProps> = ({ className, numCards, chil
   })
 
   return (
+    // Container for cards that makes sure that all contained cards are resized to fit the container
     <React.Fragment>
-      <div className={className}>
+      <div className="flex-1 flex justify-center flex-wrap overflow-hidden">
         <ReactResizeDetector handleWidth handleHeight refreshMode={"debounce"} refreshRate={100}>
           {({ width, height }: Record<string, number>) =>
             cloneElement(children, {
               ...getSize(width, height, numCards),
               onCardClick: (i: number) => {
-                setCurrentCard(i)
-                setIsOpen(true)
+                setFocusCard(i)
+                setModalOpen(true)
               },
             })
           }
         </ReactResizeDetector>
       </div>
 
-      {isOpen ? (
+      {isModalOpen ? (
+        // Modal focusing on a single card
         <Portal>
-          <Modal numCards={numCards} currentCard={currentCard} setCurrentCard={setCurrentCard} setIsOpen={setIsOpen}>
+          <Modal
+            focusCard={focusCard}
+            setPreviousFocusCard={() => setFocusCard(focusCard > 0 ? focusCard - 1 : numCards - 1)}
+            setNextFocusCard={() => setFocusCard((focusCard + 1) % numCards)}
+            closeModal={() => setModalOpen(false)}
+          >
             {children}
           </Modal>
         </Portal>

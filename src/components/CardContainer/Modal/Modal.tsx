@@ -4,21 +4,27 @@ import Button from "components/Button"
 import "./animations.css"
 
 type ModalProps = {
-  currentCard: number
-  numCards: number
-  setCurrentCard: React.Dispatch<React.SetStateAction<number>>
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  focusCard: number
+  setPreviousFocusCard: () => void
+  setNextFocusCard: () => void
+  closeModal: () => void
   children: ReactElement
 }
 
-const CardResizer: React.FC<ModalProps> = ({ currentCard, setCurrentCard, numCards, setIsOpen, children }) => {
+const CardResizer: React.FC<ModalProps> = (props) => {
   return (
     <React.Fragment>
-      <ReactCSSTransitionGroup transitionName="fade" transitionAppear={true} transitionAppearTimeout={300}>
-        <div className="fixed inset-0 bg-gray-900 opacity-75" onClick={() => setIsOpen(false)}></div>
+      <ReactCSSTransitionGroup
+        transitionName="fade"
+        transitionAppear={true}
+        transitionAppearTimeout={300}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
+        <div className="fixed inset-0 bg-gray-900 opacity-75" onClick={props.closeModal}></div>
 
         <div className="fixed inset-0 z-50 pointer-events-none">
-          <Button className={`absolute top-0 right-0 mr-10 text-primary text-4xl`} onClick={() => setIsOpen(false)}>
+          <Button className={`absolute top-0 right-0 mr-10 text-primary text-4xl`} onClick={props.closeModal}>
             ×
           </Button>
 
@@ -28,7 +34,7 @@ const CardResizer: React.FC<ModalProps> = ({ currentCard, setCurrentCard, numCar
               top: "50%",
               transform: "translateY(-50%)",
             }}
-            onClick={() => setCurrentCard(currentCard > 0 ? currentCard - 1 : numCards - 1)}
+            onClick={props.setPreviousFocusCard}
           >
             ←
           </Button>
@@ -39,16 +45,22 @@ const CardResizer: React.FC<ModalProps> = ({ currentCard, setCurrentCard, numCar
               top: "50%",
               transform: "translateY(-50%)",
             }}
-            onClick={() => setCurrentCard((currentCard + 1) % numCards)}
+            onClick={props.setNextFocusCard}
           >
             →
           </Button>
         </div>
       </ReactCSSTransitionGroup>
 
-      <ReactCSSTransitionGroup transitionName="scale" transitionAppear={true} transitionAppearTimeout={300}>
+      <ReactCSSTransitionGroup
+        transitionName="scale"
+        transitionAppear={true}
+        transitionAppearTimeout={300}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
         <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
-          {cloneElement(children, { currentCard })}
+          {cloneElement(props.children, { focusCard: props.focusCard })}
         </div>
       </ReactCSSTransitionGroup>
     </React.Fragment>
