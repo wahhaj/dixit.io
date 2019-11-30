@@ -17,6 +17,12 @@ type HandProps = {
 const Hand: React.FC<HandProps> = (props) => {
   const inModal = typeof props.focusCard === "number"
 
+  const PlayButton = (
+    <Button className="text-xl text-dark bg-primary m-4" onClick={() => props.onPlay && props.onPlay(props.focusCard!)}>
+      Play
+    </Button>
+  )
+
   return (
     <React.Fragment>
       {props.cards
@@ -31,18 +37,7 @@ const Hand: React.FC<HandProps> = (props) => {
           />
         ))}
 
-      {inModal ? (
-        props.canPlay ? (
-          <Button
-            className="text-xl text-dark bg-primary m-4"
-            onClick={() => props.onPlay && props.onPlay(props.focusCard!)}
-          >
-            Play
-          </Button>
-        ) : (
-          <div className="m-4"></div>
-        )
-      ) : null}
+      {inModal ? props.canPlay ? PlayButton : <div className="m-4"></div> : null}
     </React.Fragment>
   )
 }
