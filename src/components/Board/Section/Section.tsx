@@ -16,7 +16,7 @@ const icons: Record<Sections, FunctionComponent<IconProps>> = {
   scores: IconScores,
 }
 
-const Scores: React.FC<SectionProps> = (props) => {
+const Section: React.FC<SectionProps> = (props) => {
   const IconComponent = icons[props.type]
   const displayClass = props.currentView !== props.type ? " hidden md:flex" : " flex"
 
@@ -34,4 +34,4 @@ const Scores: React.FC<SectionProps> = (props) => {
   )
 }
 
-export default Scores
+export default Section
