@@ -16,7 +16,7 @@ const Game = Client({ game: Dixit, numPlayers: 3, board: Board, multiplayer: Soc
 const App: React.FC = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/:roomID" component={Lobby} />
+      <Route path="/:gameID" component={Lobby} />
       <Route path="/" component={Home} />
     </Switch>
   </BrowserRouter>

@@ -1,9 +1,33 @@
-import React from "react"
+import React, { useState } from "react"
 import Button from "components/Button"
 import Input from "components/Input"
 import logo from "logo.png"
+import { LOBBY_URL } from "config"
+import { useHistory } from "react-router-dom"
+
+const createRoom = async (numPlayers: number) => {
+  const response = await fetch(`${LOBBY_URL}/games/dixit/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      numPlayers: numPlayers,
+    }),
+  })
+
+  const body = await response.json()
+
+  if (body.gameID) {
+    return body.gameID
+  }
+}
 
 const Home: React.FC = () => {
+  const history = useHistory()
+  const [numPlayers, setNumPlayers] = useState(4)
+  const [gameID, setGameID] = useState("")
+
   return (
     <div>
       <nav className="bg-dark p-2 text-center">
@@ -19,7 +43,11 @@ const Home: React.FC = () => {
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
           <div className="relative mb-2">
-            <select className="appearance-none bg-gray-200 border border-gray-200 py-1 pl-2 pr-8 rounded focus:outline-none">
+            <select
+              value={numPlayers}
+              onChange={(e) => setNumPlayers(+e.target.value)}
+              className="appearance-none bg-gray-200 border border-gray-200 py-1 pl-2 pr-8 rounded focus:outline-none"
+            >
               <option value="3">3 players</option>
               <option value="4">4 players</option>
               <option value="5">5 players</option>
@@ -32,7 +60,17 @@ const Home: React.FC = () => {
               </svg>
             </div>
           </div>
-          <Button className="bg-primary">Create room</Button>
+
+          <Button
+            className="bg-primary"
+            onClick={() => {
+              createRoom(numPlayers).then((gameID) => {
+                history.push(`/${gameID}`)
+              })
+            }}
+          >
+            Create room
+          </Button>
         </div>
 
         <div className="mx-auto max-w-2xl flex flex-col items-center">
@@ -40,9 +78,11 @@ const Home: React.FC = () => {
 
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
-          <Input id="room-id" label="Room ID" placeholder="Abc1234" />
+          <Input id="room-id" label="Room ID" placeholder="Abc1234" onChange={(e) => setGameID(e.target.value)} />
 
-          <Button className="bg-primary">Join room</Button>
+          <Button className="bg-primary" onClick={() => history.push(`/${gameID}`)}>
+            Join room
+          </Button>
         </div>
       </div>
     </div>
