@@ -81,8 +81,8 @@ const CardContainer: React.FC<CardContainerProps> = ({ numCards, children }) => 
         <Portal>
           <Modal
             focusCard={focusCard}
-            setPreviousFocusCard={() => setFocusCard(focusCard > 0 ? focusCard - 1 : numCards - 1)}
-            setNextFocusCard={() => setFocusCard((focusCard + 1) % numCards)}
+            focusNextCard={() => setFocusCard(focusCard > 0 ? focusCard - 1 : numCards - 1)}
+            focusPreviousCard={() => setFocusCard((focusCard + 1) % numCards)}
             closeModal={() => setModalOpen(false)}
           >
             {children}
