@@ -4,7 +4,6 @@ import back from "./back.png"
 
 type CardProps = {
   id?: number
-  className?: string
   width?: number
   height?: number
   onClick?: () => void
@@ -22,7 +21,7 @@ const Card: React.FC<CardProps> = ({ id, className, width, height, onClick }) =>
         width: hasExplicitSize ? `${width}px` : "unset",
         height: hasExplicitSize ? `${height}px` : "100%",
       }}
-      className={`${className} rounded-lg shadow object-cover max-w-full max-h-full`}
+      className="m-1 rounded-lg shadow object-cover max-w-full max-h-full"
       onClick={onClick}
     ></img>
   )

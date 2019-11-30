@@ -20,14 +20,7 @@ const Hand: React.FC<HandProps> = ({ cards, cardWidth, cardHeight, onCardClick, 
       {cards
         .filter((card, i) => currentCard === undefined || currentCard === i)
         .map((card, i) => (
-          <Card
-            id={card}
-            key={i}
-            className="m-1"
-            width={cardWidth}
-            height={cardHeight}
-            onClick={() => onCardClick && onCardClick(i)}
-          />
+          <Card id={card} key={i} width={cardWidth} height={cardHeight} onClick={() => onCardClick && onCardClick(i)} />
         ))}
 
       {currentCard !== undefined && canPlay && playCard !== undefined ? (

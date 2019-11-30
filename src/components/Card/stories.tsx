@@ -13,10 +13,7 @@ export const back = () => <Card />
 export const all = () => (
   <div className="flex flex-wrap">
     {Array.from(Array(DECK_SIZE), (e, i) => (
-      <div className="text-center" key={i}>
-        <Card id={i} className="m-1" />
-        <span>{i}</span>
-      </div>
+      <Card id={i} key={i} />
     ))}
   </div>
 )

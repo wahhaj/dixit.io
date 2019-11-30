@@ -19,9 +19,9 @@ const Hand: React.FC<PlayedCardProps> = ({ playedCards, activePlayers, width, he
       {playedCards.length ? (
         playedCards.map((pc, i) => {
           if (shouldShowCards) {
-            return <Card id={pc.card} key={i} className="mx-2" width={width} height={height} />
+            return <Card id={pc.card} key={i} width={width} height={height} />
           } else {
-            return <Card key={i} className="mx-2" width={width} height={height} />
+            return <Card key={i} width={props.cardWidth} height={props.cardHeight} />
           }
         })
       ) : (
