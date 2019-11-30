@@ -1,5 +1,6 @@
 import React from "react"
 import Button from "components/Button"
+import Input from "components/Input"
 import logo from "logo.png"
 
 const Home: React.FC = () => {
@@ -39,17 +40,7 @@ const Home: React.FC = () => {
 
           <hr className="w-48 max-w-full my-2 mx-auto" />
 
-          <div className="flex items-center mb-2">
-            <label className="mr-2" htmlFor="room-id">
-              Room ID
-            </label>
-            <input
-              className="block appearance-none bg-gray-200 border border-gray-200 py-1 pl-2 pr-8 rounded focus:outline-none focus:bg-white focus:border-gray-500"
-              id="room-id"
-              type="text"
-              placeholder="Abc123"
-            />
-          </div>
+          <Input id="room-id" label="Room ID" placeholder="Abc1234" />
 
           <Button className="bg-primary">Join room</Button>
         </div>
