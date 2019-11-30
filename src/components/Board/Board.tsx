@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import { IG } from "game/typings"
 import { IGameCtx } from "boardgame.io/core"
 import Navbar from "./Navbar"
-import Status from "components/Status"
+import Status from "components/Board/Status"
 import Section from "./Section"
-import CardResizer from "components/CardResizer"
+import CardContainer from "components/CardContainer"
 import PlayedCards from "components/PlayedCards"
 import Hand from "components/Hand"
 import ScoreBoard from "components/ScoreBoard"
@@ -23,9 +23,12 @@ type BoardProps = {
   credentials: string | null
 }
 
-const Board: React.FC<BoardProps> = ({ G, ctx, playerID }) => {
+const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
   const player = G.players[+playerID]
   const [view, setView] = useState("played")
+
+  const canPlay = ctx.activePlayers[+playerID] === "play"
+  const canVote = ctx.activePlayers[+playerID] === "vote"
 
   return (
     <div className={styles.board}>
@@ -39,15 +42,21 @@ const Board: React.FC<BoardProps> = ({ G, ctx, playerID }) => {
       </Section>
 
       <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
-        <CardResizer numCards={G.playedCards.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
-          <PlayedCards playedCards={G.playedCards} activePlayers={ctx.activePlayers} />
-        </CardResizer>
+        <CardContainer numCards={G.playedCards.length}>
+          <PlayedCards
+            playedCards={G.playedCards}
+            activePlayers={ctx.activePlayers}
+            playerID={+playerID}
+            canVote={canVote}
+            onVote={moves.vote}
+          />
+        </CardContainer>
       </Section>
 
       <Section title="Your Hand" type="hand" currentView={view} className={`${styles.hand}`}>
-        <CardResizer numCards={player.hand.length} className="flex-1 flex justify-center flex-wrap overflow-hidden">
-          <Hand hand={player.hand} />
-        </CardResizer>
+        <CardContainer numCards={player.hand.length}>
+          <Hand cards={player.hand} canPlay={canPlay} onPlay={moves.play} />
+        </CardContainer>
       </Section>
     </div>
   )

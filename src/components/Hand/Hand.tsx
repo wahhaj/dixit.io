@@ -1,19 +1,43 @@
 import React from "react"
 import Card from "components/Card"
 import { IPlayer } from "game/typings"
+import Button from "components/Button"
 
 type HandProps = {
-  hand: IPlayer["hand"]
-  width?: number
-  height?: number
+  cards: IPlayer["hand"]
+  canPlay: boolean
+  onPlay?: (card: number) => void
+
+  cardWidth?: number
+  cardHeight?: number
+  focusCard?: number
+  onCardClick?: React.Dispatch<React.SetStateAction<number>>
 }
 
-const Hand: React.FC<HandProps> = ({ hand, width, height }) => {
+const Hand: React.FC<HandProps> = (props) => {
+  const inModal = typeof props.focusCard === "number"
+
+  const PlayButton = (
+    <Button className="text-xl text-dark bg-primary m-4" onClick={() => props.onPlay && props.onPlay(props.focusCard!)}>
+      Play
+    </Button>
+  )
+
   return (
     <React.Fragment>
-      {hand.map((card, i) => (
-        <Card id={card} key={i} className="m-1" width={width} height={height} />
-      ))}
+      {props.cards
+        .filter((card, i) => !inModal || props.focusCard === i)
+        .map((card, i) => (
+          <Card
+            id={card}
+            key={i}
+            width={props.cardWidth}
+            height={props.cardHeight}
+            onClick={() => props.onCardClick && props.onCardClick(i)}
+          />
+        ))}
+
+      {inModal ? props.canPlay ? PlayButton : <div className="m-4"></div> : null}
     </React.Fragment>
   )
 }

@@ -1,27 +1,31 @@
 import React from "react"
-import { CARD_IMAGE_URL_PREFIX } from "config"
+import { DECK_SIZE, CARD_IMAGE_URL_PREFIX } from "config"
 import back from "./back.png"
 
 type CardProps = {
   id?: number
-  className?: string
   width?: number
   height?: number
+  onClick?: () => void
 }
 
-const Card: React.FC<CardProps> = ({ id, className, width = 180, height = 270 }) => {
-  const url = id !== undefined ? `${CARD_IMAGE_URL_PREFIX}${id.toString().padStart(4, "0")}.png` : back
+const Card: React.FC<CardProps> = ({ id, width, height, onClick }) => {
+  const hasExplicitSize = width !== undefined && height !== undefined
+  const isIdValid = id !== undefined && id >= 0 && id <= DECK_SIZE
+
+  const padId = isIdValid ? id!.toString().padStart(4, "0") : "cardback"
+  const src = isIdValid ? `${CARD_IMAGE_URL_PREFIX}${padId}.png` : back
 
   return (
     <img
-      src={url}
-      alt={`Dixit card ${id}`}
+      src={src}
+      alt={`Dixit#${padId}`}
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        objectFit: "cover",
+        width: hasExplicitSize ? `${width}px` : "unset",
+        height: hasExplicitSize ? `${height}px` : "100%",
       }}
-      className={`${className} rounded-lg shadow`}
+      className="m-1 rounded-lg shadow object-cover max-w-full max-h-full"
+      onClick={onClick}
     ></img>
   )
 }
