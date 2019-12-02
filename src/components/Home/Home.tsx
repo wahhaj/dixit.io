@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Button from "components/Button"
 import Input from "components/Input"
 import logo from "logo.png"
-import { LOBBY_URL } from "config"
+import { LOBBY_URL } from "utils/config"
 import { useHistory } from "react-router-dom"
 
 const createRoom = async (numPlayers: number) => {

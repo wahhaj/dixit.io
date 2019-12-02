@@ -1,6 +1,6 @@
 import React from "react"
 import Card from "./Card"
-import { DECK_SIZE } from "config"
+import { DECK_SIZE } from "utils/config"
 import { action } from "@storybook/addon-actions"
 
 export default {

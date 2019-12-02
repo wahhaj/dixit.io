@@ -3,6 +3,7 @@ import Button from "components/Button"
 import Input from "components/Input"
 import logo from "logo.png"
 import { match } from "react-router-dom"
+import { LOBBY_URL } from "utils/config"
 
 type RouteParams = {
   gameID: string

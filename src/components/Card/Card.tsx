@@ -1,5 +1,5 @@
 import React from "react"
-import { DECK_SIZE, CARD_IMAGE_URL_PREFIX } from "config"
+import { DECK_SIZE, CARD_IMAGE_URL_PREFIX } from "utils/config"
 import back from "./back.png"
 
 type CardProps = {
