@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { LOBBY_URL } from "utils/config"
+import { ILobby } from "game/typings"
 
 type ApiEndpoint = {
-  create: (numPlayers: number) => Promise<any>
-  load: (gameID: string) => Promise<any>
-  join: (gameID: string, playerID: number, playerName: string) => Promise<any>
+  create: (numPlayers: number) => Promise<{ gameID: string }>
+  load: (gameID: string) => Promise<ILobby>
+  join: (gameID: string, playerID: number, playerName: string) => Promise<{ playerCredentials: string }>
 }
 
 export const useLobbyApi: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpoint[K], boolean, boolean] = (
@@ -24,21 +25,23 @@ export const useLobbyApi: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpo
     }
   }
 
-  const get: (endpoint: string) => Promise<any> = (endpoint) => {
+  const get: (endpoint: string) => Promise<any> = async (endpoint) => {
     setIsLoading(true)
-    return fetch(`${LOBBY_URL}/games/dixit/${endpoint}`).then(handleResponse)
+    const response = await fetch(`${LOBBY_URL}/games/dixit/${endpoint}`)
+    return handleResponse(response)
   }
 
-  const post: (endpoint: string, body: Record<string, string | number>) => Promise<any> = (endpoint, body) => {
+  const post: (endpoint: string, body: Record<string, string | number>) => Promise<any> = async (endpoint, body) => {
     setIsLoading(true)
 
-    return fetch(`${LOBBY_URL}/games/dixit/${endpoint}`, {
+    const response = await fetch(`${LOBBY_URL}/games/dixit/${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then(handleResponse)
+    })
+    return handleResponse(response)
   }
 
   const apiEndpoints: ApiEndpoint = {

@@ -50,8 +50,13 @@ const Home: React.FC = () => {
 
           <Button
             className="bg-primary"
-            onClick={() => {
-              createLobby(numPlayers).then(({ gameID }) => history.push(`/${gameID}`))
+            onClick={async () => {
+              try {
+                let { gameID } = await createLobby(numPlayers)
+                history.push(`/${gameID}`)
+              } catch (err) {
+                console.error(err)
+              }
             }}
           >
             Create Lobby
@@ -76,13 +81,16 @@ const Home: React.FC = () => {
 
           <Button
             className="bg-primary"
-            onClick={() =>
-              gameID.length
-                ? loadLobby(gameID)
-                    .then((gameID) => history.push(`/${gameID}`))
-                    .catch((err) => console.log(err))
-                : null
-            }
+            onClick={async () => {
+              if (gameID.length) {
+                try {
+                  const { roomID } = await loadLobby(gameID)
+                  history.push(`/${roomID}`)
+                } catch (err) {
+                  console.error(err)
+                }
+              }
+            }}
           >
             Join Lobby
           </Button>

@@ -19,3 +19,13 @@ export interface IG {
 
   numVotes: number
 }
+
+export interface ILobby {
+  roomID: string
+  players: IPlayerInLobby[]
+}
+
+export interface IPlayerInLobby {
+  id: number
+  name: string
+}
