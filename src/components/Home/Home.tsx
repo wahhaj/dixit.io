@@ -2,31 +2,16 @@ import React, { useState } from "react"
 import Button from "components/Button"
 import Input from "components/Input"
 import logo from "logo.png"
-import { LOBBY_URL } from "utils/config"
 import { useHistory } from "react-router-dom"
-
-const createRoom = async (numPlayers: number) => {
-  const response = await fetch(`${LOBBY_URL}/games/dixit/create`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      numPlayers: numPlayers,
-    }),
-  })
-
-  const body = await response.json()
-
-  if (body.gameID) {
-    return body.gameID
-  }
-}
+import { useLobbyApi } from "utils/lobby-api"
 
 const Home: React.FC = () => {
   const history = useHistory()
   const [numPlayers, setNumPlayers] = useState(4)
   const [gameID, setGameID] = useState("")
+
+  const [createLobby, createError] = useLobbyApi("create")
+  const [loadLobby, loadError] = useLobbyApi("load")
 
   return (
     <div>
@@ -38,7 +23,7 @@ const Home: React.FC = () => {
         <h1 className="font-bold text-2xl text-center mb-6">Welcome to Dixit.io!</h1>
 
         <div className="mx-auto max-w-2xl mb-16 flex flex-col items-center">
-          <h2 className="text-xl leading-none">Create a new room</h2>
+          <h2 className="text-xl leading-none">Create a new lobby</h2>
 
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
@@ -61,27 +46,44 @@ const Home: React.FC = () => {
             </div>
           </div>
 
+          {createError ? <div className="text-red-600 mb-2">Error creating lobby. Try again.</div> : null}
+
           <Button
             className="bg-primary"
             onClick={() => {
-              createRoom(numPlayers).then((gameID) => {
-                history.push(`/${gameID}`)
-              })
+              createLobby(numPlayers).then(({ gameID }) => history.push(`/${gameID}`))
             }}
           >
-            Create room
+            Create Lobby
           </Button>
         </div>
 
         <div className="mx-auto max-w-2xl flex flex-col items-center">
-          <h2 className="text-xl leading-none">Join existing room</h2>
+          <h2 className="text-xl leading-none">Join existing lobby</h2>
 
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
-          <Input id="room-id" label="Room ID" placeholder="Abc1234" onChange={(e) => setGameID(e.target.value)} />
+          <Input
+            id="lobby-id"
+            label="Lobby ID"
+            placeholder="Abc1234"
+            value={gameID}
+            onChange={(e) => setGameID(e.target.value)}
+          />
 
-          <Button className="bg-primary" onClick={() => history.push(`/${gameID}`)}>
-            Join room
+          {loadError ? <div className="text-red-600 mb-2">Error loading lobby. Try a different Lobby ID.</div> : null}
+
+          <Button
+            className="bg-primary"
+            onClick={() =>
+              gameID.length
+                ? loadLobby(gameID)
+                    .then((gameID) => history.push(`/${gameID}`))
+                    .catch((err) => console.log(err))
+                : null
+            }
+          >
+            Join Lobby
           </Button>
         </div>
       </div>
