@@ -68,6 +68,7 @@ const Home: React.FC = () => {
             label="Lobby ID"
             placeholder="Abc1234"
             value={gameID}
+            hasError={loadError}
             onChange={(e) => setGameID(e.target.value)}
           />
 
