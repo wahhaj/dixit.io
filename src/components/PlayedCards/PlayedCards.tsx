@@ -1,11 +1,11 @@
 import React from "react"
 import Card from "components/Card"
 import Button from "components/Button"
-import { IPlayedCard } from "types"
+import { PlayedCard } from "types"
 import { IGameCtx } from "boardgame.io/core"
 
 type PlayedCardProps = {
-  playedCards: IPlayedCard[]
+  playedCards: PlayedCard[]
   activePlayers: IGameCtx["activePlayers"]
   playerID?: number
   canVote: boolean
@@ -21,7 +21,7 @@ const PlayedCards: React.FC<PlayedCardProps> = (props) => {
   const inModal = typeof props.focusCard === "number"
   const shouldRevealCards = Object.values(props.activePlayers).every((state) => state === "vote")
 
-  const VoteButton = (playedCard: IPlayedCard) =>
+  const VoteButton = (playedCard: PlayedCard) =>
     playedCard.player !== props.playerID ? (
       <Button
         className="text-xl text-dark bg-primary m-4"

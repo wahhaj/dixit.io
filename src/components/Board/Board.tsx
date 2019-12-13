@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { IGameState, IPlayerInLobby } from "types"
+import { GameState, PlayerInSession } from "types"
 import { IGameCtx } from "boardgame.io/core"
 import Navbar from "./Navbar"
 import Status from "components/Board/Status"
@@ -11,12 +11,12 @@ import ScoreBoard from "components/ScoreBoard"
 import styles from "./Board.module.css"
 
 type BoardProps = {
-  G: IGameState
+  G: GameState
   ctx: IGameCtx
   moves: Record<string, (...args: any[]) => void>
   gameID: string
   playerID: string
-  gameMetadata: IPlayerInLobby[]
+  gameMetadata: PlayerInSession[]
   isActive: boolean
   isConnected: boolean
   isMultiplayer: boolean

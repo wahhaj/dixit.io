@@ -2,11 +2,11 @@ import React from "react"
 import { Client } from "boardgame.io/react"
 import { SocketIO } from "boardgame.io/multiplayer"
 import { Dixit } from "game"
-import Board from "components/Board"
 import { match } from "react-router-dom"
+import Board from "components/Board"
 
 type RouteParams = {
-  roomID: string
+  gameID: string
   playerID: string
 }
 
@@ -21,7 +21,7 @@ const Game: React.FC<GameProps> = ({ match }) => {
     multiplayer: SocketIO({ server: "localhost:8000" }),
   })
 
-  return <ClientComponent gameID={match.params.roomID} playerID={match.params.playerID} debug={true} />
+  return <ClientComponent gameID={match.params.gameID} playerID={match.params.playerID} debug={true} />
 }
 
 export default Game

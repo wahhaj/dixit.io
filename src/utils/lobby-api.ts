@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { LOBBY_URL } from "utils/config"
-import { ILobby } from "types"
+import { GameSession } from "types"
 
 type ApiEndpoint = {
   create: (numPlayers: number) => Promise<{ gameID: string }>
-  load: (gameID: string) => Promise<ILobby>
+  load: (gameID: string) => Promise<GameSession>
   join: (gameID: string, playerID: number, playerName: string) => Promise<{ playerCredentials: string }>
 }
 

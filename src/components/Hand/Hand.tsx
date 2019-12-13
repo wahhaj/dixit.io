@@ -1,10 +1,10 @@
 import React from "react"
 import Card from "components/Card"
-import { IPlayer } from "types"
+import { Player } from "types"
 import Button from "components/Button"
 
 type HandProps = {
-  cards: IPlayer["hand"]
+  cards: Player["hand"]
   canPlay: boolean
   onPlay?: (card: number) => void
 

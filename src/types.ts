@@ -1,40 +1,38 @@
-export interface IPlayer {
+export interface GameState {
+  players: Player[]
+
+  deck: number[]
+  discard: number[]
+
+  playedCards: PlayedCard[]
+  numVotes: number
+}
+
+export interface Player {
   score: number
   hand: number[]
 }
 
-export interface IPlayedCard {
+export interface PlayedCard {
   player: number
   card: number
   votes: number[]
 }
 
-export interface IGameState {
-  players: IPlayer[]
-
-  deck: number[]
-  discard: number[]
-  playedCards: IPlayedCard[]
-
-  numVotes: number
+export interface GameSession {
+  id: string
+  players: PlayerInSession[]
 }
 
-export interface ILobby {
-  roomID: string
-  players: IPlayerInLobby[]
-}
-
-export interface IPlayerInLobby {
+export interface PlayerInSession {
   id: number
   name: string
 }
 
-export interface IPlayerWithCredentials {
-  id: number
-  name: string
+export interface PlayerWithCredentials extends PlayerInSession {
   credential: string
 }
 
-export interface IStoredCredentials {
-  [gameID: string]: IPlayerWithCredentials
+export interface StoredCredentials {
+  [gameID: string]: PlayerWithCredentials
 }

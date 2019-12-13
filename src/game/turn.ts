@@ -1,8 +1,8 @@
 import moves from "./moves"
-import { IGameState } from "../types"
-import { IGameCtx } from "boardgame.io/core"
+import { GameState } from "types"
+import { GameContext } from "boardgame.io/core"
 
-const allocateScores = (G: IGameState, ctx: IGameCtx) => {
+const allocateScores = (G: GameState, ctx: GameContext) => {
   const currentPlayer = G.players[+ctx.currentPlayer]
   const otherPlayers = G.players.filter((player, i) => i !== +ctx.currentPlayer)
   const [currentPlayerCard, ...otherPlayersCards] = G.playedCards
@@ -41,17 +41,17 @@ const allocateScores = (G: IGameState, ctx: IGameCtx) => {
   }
 }
 
-const refillHands = (G: IGameState, { numPlayers, random }: IGameCtx) => {
+const refillHands = (G: GameState, ctx: GameContext) => {
   // put all playedCards from this turn in the discard pile
   G.discard.push(...G.playedCards.map(({ card }) => card))
 
   G.players.forEach(({ hand }) => {
-    const numCardsInHand = numPlayers === 3 ? 7 : 6
+    const numCardsInHand = ctx.numPlayers === 3 ? 7 : 6
     const replacementCardsNeeded = numCardsInHand - hand.length
 
     // if deck doesn't have enough cards left to refill the hand, shuffle discard pile back into deck
     if (G.deck.length < replacementCardsNeeded) {
-      G.deck = random.Shuffle([...G.discard])
+      G.deck = ctx.random.Shuffle([...G.discard])
       G.discard = []
     }
 
@@ -60,7 +60,7 @@ const refillHands = (G: IGameState, { numPlayers, random }: IGameCtx) => {
   })
 }
 
-const resetTurnState = (G: IGameState) => {
+const resetTurnState = (G: GameState) => {
   G.numVotes = 0
   G.playedCards = []
 }
@@ -81,9 +81,9 @@ export default {
     },
   },
 
-  endIf: ({ numVotes }: IGameState, { numPlayers }: IGameCtx) => numVotes === numPlayers - 1,
+  endIf: ({ numVotes }: GameState, { numPlayers }: GameContext) => numVotes === numPlayers - 1,
 
-  onEnd: (G: IGameState, ctx: IGameCtx) => {
+  onEnd: (G: GameState, ctx: GameContext) => {
     allocateScores(G, ctx)
     refillHands(G, ctx)
     resetTurnState(G)

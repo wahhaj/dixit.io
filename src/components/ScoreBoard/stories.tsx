@@ -1,12 +1,12 @@
 import React from "react"
 import ScoreBoard from "./ScoreBoard"
-import { IPlayer } from "types"
+import { IPlayerInGame } from "types"
 
 export default {
   title: "Scoring/ScoreBoard",
 }
 
-const players: IPlayer[] = [
+const players: IPlayerInGame[] = [
   {
     score: 5,
     hand: [],
@@ -24,7 +24,7 @@ const players: IPlayer[] = [
 export const minPlayers = () => <ScoreBoard players={players} />
 
 export const maxPlayers = () => {
-  const max: IPlayer[] = [
+  const max: IPlayerInGame[] = [
     ...players,
     {
       score: 20,

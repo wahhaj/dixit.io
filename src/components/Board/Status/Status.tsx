@@ -1,5 +1,5 @@
 import React from "react"
-import { IPlayer } from "types"
+import { Player } from "types"
 import { IGameCtx } from "boardgame.io/core"
 
 type StatusProps = {
