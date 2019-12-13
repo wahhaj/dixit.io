@@ -1,4 +1,4 @@
-import { IG } from "./typings"
+import { IG } from "../types"
 import { INVALID_MOVE, IGameCtx } from "boardgame.io/core"
 
 const play = (G: IG, ctx: IGameCtx, cardIndexInHand: number) => {

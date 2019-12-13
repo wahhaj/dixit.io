@@ -11,7 +11,7 @@ import Seat from "./Seat"
 import { useHistory } from "react-router-dom"
 
 import { getCredentials, setCredentials } from "utils/credentials"
-import { ILobby, IPlayerInLobby, IPlayerWithCredentials, IStoredCredentials } from "game/typings"
+import { ILobby, IPlayerInLobby, IPlayerWithCredentials, IStoredCredentials } from "types"
 
 type RouteParams = {
   gameID: string

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { IG } from "game/typings"
+import { IG, IPlayerInLobby } from "types"
 import { IGameCtx } from "boardgame.io/core"
 import Navbar from "./Navbar"
 import Status from "components/Board/Status"

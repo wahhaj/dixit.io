@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { IPlayerWithCredentials, IStoredCredentials } from "game/typings"
+import { IPlayerWithCredentials, IStoredCredentials } from "types"
 
 export type PlayerCredential = {
   id: number

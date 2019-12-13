@@ -1,4 +1,4 @@
-import { IPlayer, IG } from "./typings"
+import { IPlayer, IG } from "../types"
 import { IGameCtx } from "boardgame.io/core"
 import { DECK_SIZE } from "../utils/config"
 

@@ -1,5 +1,5 @@
 import React from "react"
-import { IPlayer } from "game/typings"
+import { IPlayer, IPlayerInLobby } from "types"
 import Score from "./Score"
 
 type ScoreBoardProps = {

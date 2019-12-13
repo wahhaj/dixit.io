@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { LOBBY_URL } from "utils/config"
-import { ILobby } from "game/typings"
+import { ILobby } from "types"
 
 type ApiEndpoint = {
   create: (numPlayers: number) => Promise<{ gameID: string }>

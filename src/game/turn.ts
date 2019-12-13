@@ -1,5 +1,5 @@
 import moves from "./moves"
-import { IG } from "./typings"
+import { IG } from "../types"
 import { IGameCtx } from "boardgame.io/core"
 
 const allocateScores = (G: IG, ctx: IGameCtx) => {

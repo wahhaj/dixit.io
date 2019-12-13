@@ -1,6 +1,6 @@
 import React from "react"
 import ScoreBoard from "./ScoreBoard"
-import { IPlayer } from "game/typings"
+import { IPlayer } from "types"
 
 export default {
   title: "Scoring/ScoreBoard",

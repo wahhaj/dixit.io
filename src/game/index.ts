@@ -1,4 +1,4 @@
-import { IG } from "./typings"
+import { IG } from "../types"
 import setup from "./setup"
 import turn from "./turn"
 
