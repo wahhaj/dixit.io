@@ -3,13 +3,14 @@ import { IPlayer, IPlayerInLobby } from "types"
 import Score from "./Score"
 
 type ScoreBoardProps = {
-  players: IPlayer[]
+  playerNames: string[]
+  scores: number[]
 }
 
-const Scores: React.FC<ScoreBoardProps> = ({ players }) => (
+const Scores: React.FC<ScoreBoardProps> = ({ playerNames, scores }) => (
   <React.Fragment>
-    {players.map(({ name, score }, i) => (
-      <Score name={name} score={score} color={i} key={i} />
+    {scores.map((score, i) => (
+      <Score name={playerNames[i]} score={score} color={i} key={i} />
     ))}
   </React.Fragment>
 )

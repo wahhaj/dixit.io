@@ -16,29 +16,32 @@ type BoardProps = {
   moves: Record<string, (...args: any[]) => void>
   gameID: string
   playerID: string
-  gameMetadata: any
+  gameMetadata: IPlayerInLobby[]
   isActive: boolean
   isConnected: boolean
   isMultiplayer: boolean
   credentials: string | null
+  match: any
 }
 
-const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID }) => {
+const Board: React.FC<BoardProps> = ({ G, ctx, gameMetadata, moves, playerID }) => {
   const player = G.players[+playerID]
   const [view, setView] = useState("played")
 
   const canPlay = ctx.activePlayers[+playerID] === "play"
   const canVote = ctx.activePlayers[+playerID] === "vote"
 
+  const playerNames = gameMetadata.map((p) => p.name)
+
   return (
     <div className={styles.board}>
       <div className={styles.header}>
         <Navbar currentView={view} setView={setView} />
-        <Status playerID={+playerID} activePlayers={ctx.activePlayers} players={G.players} />
+        <Status playerID={+playerID} activePlayers={ctx.activePlayers} playerNames={playerNames} />
       </div>
 
       <Section title="Player List" type="scores" currentView={view} className={`shadow ${styles.scores}`}>
-        <ScoreBoard players={G.players} />
+        <ScoreBoard scores={G.players.map(({ score }) => score)} playerNames={playerNames} />
       </Section>
 
       <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>

@@ -7,7 +7,6 @@ export default function setup({ numPlayers, random }: IGameCtx): IGameState {
 
   const numCardsInHand = numPlayers === 3 ? 7 : 6
   const players: IPlayer[] = Array.from(Array(numPlayers), (e, i) => ({
-    name: `P${i}`,
     score: 0,
     hand: deck.splice(0, numCardsInHand),
   }))
