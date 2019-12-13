@@ -1,7 +1,7 @@
-import { IG } from "../types"
+import { IGameState } from "../types"
 import { INVALID_MOVE, IGameCtx } from "boardgame.io/core"
 
-const play = (G: IG, ctx: IGameCtx, cardIndexInHand: number) => {
+const play = (G: IGameState, ctx: IGameCtx, cardIndexInHand: number) => {
   const player = G.players[+ctx.playerID]
   const cardInHand = player.hand[cardIndexInHand]
   const maxPlayedCards = ctx.numPlayers === 3 ? 5 : ctx.numPlayers
@@ -39,7 +39,7 @@ const play = (G: IG, ctx: IGameCtx, cardIndexInHand: number) => {
   }
 }
 
-const vote = (G: IG, ctx: IGameCtx, voteForCard: number) => {
+const vote = (G: IGameState, ctx: IGameCtx, voteForCard: number) => {
   const playedCard = G.playedCards[voteForCard]
 
   if (playedCard && playedCard.player !== +ctx.playerID) {

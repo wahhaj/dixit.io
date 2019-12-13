@@ -1,8 +1,8 @@
 import moves from "./moves"
-import { IG } from "../types"
+import { IGameState } from "../types"
 import { IGameCtx } from "boardgame.io/core"
 
-const allocateScores = (G: IG, ctx: IGameCtx) => {
+const allocateScores = (G: IGameState, ctx: IGameCtx) => {
   const currentPlayer = G.players[+ctx.currentPlayer]
   const otherPlayers = G.players.filter((player, i) => i !== +ctx.currentPlayer)
   const [currentPlayerCard, ...otherPlayersCards] = G.playedCards
@@ -41,7 +41,7 @@ const allocateScores = (G: IG, ctx: IGameCtx) => {
   }
 }
 
-const refillHands = (G: IG, { numPlayers, random }: IGameCtx) => {
+const refillHands = (G: IGameState, { numPlayers, random }: IGameCtx) => {
   // put all playedCards from this turn in the discard pile
   G.discard.push(...G.playedCards.map(({ card }) => card))
 
@@ -60,7 +60,7 @@ const refillHands = (G: IG, { numPlayers, random }: IGameCtx) => {
   })
 }
 
-const resetTurnState = (G: IG) => {
+const resetTurnState = (G: IGameState) => {
   G.numVotes = 0
   G.playedCards = []
 }
@@ -81,9 +81,9 @@ export default {
     },
   },
 
-  endIf: ({ numVotes }: IG, { numPlayers }: IGameCtx) => numVotes === numPlayers - 1,
+  endIf: ({ numVotes }: IGameState, { numPlayers }: IGameCtx) => numVotes === numPlayers - 1,
 
-  onEnd: (G: IG, ctx: IGameCtx) => {
+  onEnd: (G: IGameState, ctx: IGameCtx) => {
     allocateScores(G, ctx)
     refillHands(G, ctx)
     resetTurnState(G)

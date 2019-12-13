@@ -9,7 +9,7 @@ export interface IPlayedCard {
   votes: number[]
 }
 
-export interface IG {
+export interface IGameState {
   players: IPlayer[]
 
   deck: number[]
