@@ -46,7 +46,7 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {createError ? <div className="text-red-600 mb-2">Error creating lobby. Try again.</div> : null}
+          {createError && <div className="text-red-600 mb-2">Error creating lobby. Try again.</div>}
 
           <Button
             className="bg-primary"
@@ -77,7 +77,7 @@ const Home: React.FC = () => {
             onChange={(e) => setGameID(e.target.value)}
           />
 
-          {loadError ? <div className="text-red-600 mb-2">Error loading lobby. Try a different Lobby ID.</div> : null}
+          {loadError && <div className="text-red-600 mb-2">Error loading lobby. Try a different Lobby ID.</div>}
 
           <Button
             className="bg-primary"
