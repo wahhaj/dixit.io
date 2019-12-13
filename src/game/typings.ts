@@ -29,3 +29,13 @@ export interface IPlayerInLobby {
   id: number
   name: string
 }
+
+export interface IPlayerWithCredentials {
+  id: number
+  name: string
+  credential: string
+}
+
+export interface IStoredCredentials {
+  [gameID: string]: IPlayerWithCredentials
+}

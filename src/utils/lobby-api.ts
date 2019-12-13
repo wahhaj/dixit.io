@@ -47,11 +47,7 @@ export const useLobbyApi: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpo
   const apiEndpoints: ApiEndpoint = {
     create: (numPlayers) => post(`create`, { numPlayers }),
     load: (gameID) => get(gameID),
-    join: (gameID, playerID, playerName) =>
-      post(`${gameID}/join`, {
-        playerID,
-        playerName,
-      }),
+    join: (gameID, playerID, playerName) => post(`${gameID}/join`, { playerID, playerName }),
   }
 
   return [apiEndpoints[apiName], hasError, isLoading]
