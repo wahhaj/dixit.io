@@ -44,7 +44,7 @@ const Hand: React.FC<HandProps> = (props) => {
           />
         ))}
 
-      {inModal && props.canPlay ? PlayButton : <div className="m-4"></div>}
+      {inModal ? props.canPlay ? PlayButton : <div className="m-4"></div> : null}
     </React.Fragment>
   )
 }

@@ -51,7 +51,7 @@ const PlayedCards: React.FC<PlayedCardProps> = (props) => {
                   onClick={() => props.onCardClick && props.onCardClick(i)}
                 />
 
-                {inModal && props.canVote ? VoteButton(pc) : <div className="m-4"></div>}
+                {inModal ? props.canVote ? VoteButton(pc) : <div className="m-4"></div> : null}
               </React.Fragment>
             ) : (
               <Card key={i} width={props.cardWidth} height={props.cardHeight} />
