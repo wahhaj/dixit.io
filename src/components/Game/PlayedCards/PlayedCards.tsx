@@ -1,5 +1,5 @@
 import React from "react"
-import Card from "components/Card"
+import Card from "components/Game/Card"
 import Button from "components/Button"
 import { PlayedCard } from "types"
 import { GameContext } from "boardgame.io/core"

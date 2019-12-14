@@ -3,7 +3,7 @@ import { Client } from "boardgame.io/react"
 import { SocketIO } from "boardgame.io/multiplayer"
 import { Dixit } from "game"
 import { match } from "react-router-dom"
-import Board from "components/Board"
+import Board from "components/Game/Board"
 
 type RouteParams = {
   gameID: string

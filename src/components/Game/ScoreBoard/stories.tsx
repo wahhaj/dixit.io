@@ -21,7 +21,7 @@ const players: Player[] = [
   },
 ]
 
-export const minPlayers = () => <ScoreBoard players={players} />
+// export const minPlayers = () => <ScoreBoard players={players} />
 
 export const maxPlayers = () => {
   const max: Player[] = [
@@ -39,5 +39,5 @@ export const maxPlayers = () => {
       hand: [],
     },
   ]
-  return <ScoreBoard players={max} />
+  // return <ScoreBoard players={max} />
 }
