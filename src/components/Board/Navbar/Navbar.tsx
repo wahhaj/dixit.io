@@ -1,7 +1,7 @@
 import React from "react"
 import Button from "components/Button"
 import { IconPlayed, IconHand, IconScores } from "components/Icon"
-import logo from "./logo.png"
+import logo from "logo.png"
 
 type NavbarProps = {
   currentView: string

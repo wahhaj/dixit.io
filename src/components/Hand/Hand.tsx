@@ -1,10 +1,10 @@
 import React from "react"
 import Card from "components/Card"
-import { IPlayer } from "game/typings"
+import { Player } from "types"
 import Button from "components/Button"
 
 type HandProps = {
-  cards: IPlayer["hand"]
+  cards: Player["hand"]
   canPlay: boolean
   onPlay?: (card: number) => void
 
@@ -37,7 +37,7 @@ const Hand: React.FC<HandProps> = (props) => {
           />
         ))}
 
-      {inModal ? props.canPlay ? PlayButton : <div className="m-4"></div> : null}
+      {inModal && props.canPlay && PlayButton && <div className="m-4"></div>}
     </React.Fragment>
   )
 }

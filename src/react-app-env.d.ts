@@ -8,7 +8,7 @@ declare module "boardgame.io/core" {
     setActivePlayers: (config: any) => void
   }
 
-  interface IGameCtx {
+  interface GameContext {
     numPlayers: number
     turn: number
     playerID: string

@@ -1,14 +1,14 @@
 import React from "react"
-import { IPlayer } from "game/typings"
-import { IGameCtx } from "boardgame.io/core"
+import { Player } from "types"
+import { GameContext } from "boardgame.io/core"
 
 type StatusProps = {
   playerID: number
-  activePlayers: IGameCtx["activePlayers"]
-  players: IPlayer[]
+  activePlayers: GameContext["activePlayers"]
+  playerNames: string[]
 }
 
-const Hand: React.FC<StatusProps> = ({ playerID, activePlayers, players }) => {
+const Hand: React.FC<StatusProps> = ({ playerID, activePlayers, playerNames }) => {
   let status = ""
   const stringForStatus: Record<string, string> = {
     play: "Play a card",
@@ -18,8 +18,8 @@ const Hand: React.FC<StatusProps> = ({ playerID, activePlayers, players }) => {
   if (activePlayers.hasOwnProperty(playerID)) {
     status = stringForStatus[activePlayers[playerID]]
   } else {
-    const playerNames = Object.keys(activePlayers).map((pid) => players[+pid].name)
-    status = `Waiting for ${playerNames.join(", ")} to ${stringForStatus[
+    const waitingNames = Object.keys(activePlayers).map((pid) => playerNames[+pid])
+    status = `Waiting for ${waitingNames.join(", ")} to ${stringForStatus[
       Object.values(activePlayers)[0]
     ].toLowerCase()}`
   }

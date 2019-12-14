@@ -76,7 +76,7 @@ const CardContainer: React.FC<CardContainerProps> = ({ numCards, children }) => 
         </ReactResizeDetector>
       </div>
 
-      {isModalOpen ? (
+      {isModalOpen && (
         // Modal focusing on a single card
         <Portal>
           <Modal
@@ -88,7 +88,7 @@ const CardContainer: React.FC<CardContainerProps> = ({ numCards, children }) => 
             {children}
           </Modal>
         </Portal>
-      ) : null}
+      )}
     </React.Fragment>
   )
 }
