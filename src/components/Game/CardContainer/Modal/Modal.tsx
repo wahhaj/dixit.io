@@ -12,7 +12,7 @@ type ModalProps = {
 
 const CardResizer: React.FC<ModalProps> = (props) => {
   const fadeIn = useSpring({ opacity: 1, from: { opacity: 0 }, config: { duration: 100 } })
-  const scaleUp = useSpring({ transform: "scale(1)", from: { transform: "scale(0.5)" }, config: config.wobbly })
+  const scaleUp = useSpring({ transform: "scale(1)", from: { transform: "scale(0.5)" }, config: { duration: 100 } })
   const buttonClasses = "w-12 h-12 text-4xl text-dark bg-primary leading-none rounded-full"
 
   return (
