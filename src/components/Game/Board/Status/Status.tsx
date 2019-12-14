@@ -1,27 +1,27 @@
 import React from "react"
-import { Player } from "types"
-import { GameContext } from "boardgame.io/core"
+import { Player, Move } from "types"
 
 type StatusProps = {
-  playerID: number
-  activePlayers: GameContext["activePlayers"]
-  playerNames: string[]
+  player: Player
+  players: Player[]
 }
 
-const Hand: React.FC<StatusProps> = ({ playerID, activePlayers, playerNames }) => {
+const Hand: React.FC<StatusProps> = ({ player, players }) => {
   let status = ""
-  const stringForStatus: Record<string, string> = {
+  const stringForStatus: Record<Move, string> = {
     play: "Play a card",
     vote: "Vote for a card",
   }
 
-  if (activePlayers.hasOwnProperty(playerID)) {
-    status = stringForStatus[activePlayers[playerID]]
+  if (player.status) {
+    status = stringForStatus[player.status]
   } else {
-    const waitingNames = Object.keys(activePlayers).map((pid) => playerNames[+pid])
-    status = `Waiting for ${waitingNames.join(", ")} to ${stringForStatus[
-      Object.values(activePlayers)[0]
-    ].toLowerCase()}`
+    const waitingPlayers = players.filter(({ status: state }) => state !== undefined)
+    const waitingStatus = waitingPlayers[0].status as Move
+
+    status =
+      `Waiting for ${waitingPlayers.map(({ name }) => name).join(", ")} ` +
+      `to ${stringForStatus[waitingStatus].toLowerCase()}`
   }
 
   return <div className="p-2 text-center bg-primary text-dark font-bold text-xl shadow">{status}</div>

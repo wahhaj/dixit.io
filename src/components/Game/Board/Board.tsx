@@ -49,7 +49,7 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
     <div className={styles.board}>
       <div className={styles.header}>
         <Navbar currentView={view} setView={setView} />
-        <Status playerID={+playerID} activePlayers={ctx.activePlayers} playerNames={playerNames} />
+        <Status player={player} players={players} />
       </div>
 
       <Section title="Player List" type="scores" currentView={view} className={`shadow ${styles.scores}`}>
