@@ -1,5 +1,7 @@
+export type Move = "vote" | "play"
+
 export interface GameState {
-  players: Player[]
+  players: PlayerState[]
 
   deck: number[]
   discard: number[]
@@ -8,15 +10,19 @@ export interface GameState {
   numVotes: number
 }
 
-export interface Player {
-  score: number
-  hand: number[]
-}
-
 export interface PlayedCard {
   player: number
   card: number
   votes: number[]
+}
+
+export interface PlayerState {
+  score: number
+  hand: number[]
+}
+
+export interface Player extends PlayerState, PlayerInSession {
+  status?: Move
 }
 
 export interface GameSession {

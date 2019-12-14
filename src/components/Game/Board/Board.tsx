@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { GameState, PlayerInSession } from "types"
+import { GameState, Player, PlayerInSession } from "types"
 import { GameContext } from "boardgame.io/core"
 import Navbar from "./Navbar"
 import Status from "components/Game/Board/Status"
@@ -14,24 +14,36 @@ type BoardProps = {
   G: GameState
   ctx: GameContext
   moves: Record<string, (...args: any[]) => void>
+
   gameID: string
   playerID: string
   gameMetadata: PlayerInSession[]
+
   isActive: boolean
   isConnected: boolean
-  isMultiplayer: boolean
-  credentials: string | null
-  match: any
 }
 
-const Board: React.FC<BoardProps> = ({ G, ctx, gameMetadata, moves, playerID }) => {
-  const player = G.players[+playerID]
+const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) => {
   const [view, setView] = useState("played")
 
-  const canPlay = ctx.activePlayers[+playerID] === "play"
-  const canVote = ctx.activePlayers[+playerID] === "vote"
+  const players: Player[] = G.players.map(({ score, hand }, i) => {
+    const playerInMetadata = gameMetadata.find(({ id }) => id === i) as PlayerInSession
 
-  const playerNames = gameMetadata.map((p) => p.name)
+    return {
+      id: playerInMetadata && playerInMetadata.id,
+      name: playerInMetadata && playerInMetadata.name,
+      score,
+      hand,
+      status: ctx.activePlayers[i],
+    }
+  })
+
+  const player = players[+playerID]
+
+  const playerNames = players.map(({ name }) => name)
+
+  const canPlay = players[+playerID].status === "play"
+  const canVote = players[+playerID].status === "vote"
 
   return (
     <div className={styles.board}>
