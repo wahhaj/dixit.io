@@ -5,23 +5,22 @@ import logo from "logo.png"
 import { match } from "react-router-dom"
 // import Join from "./Join"
 import { LOBBY_URL } from "utils/config"
-import { useLobbyApi } from "utils/lobby-api"
+import { useSession } from "utils/session-api"
 import { useLocalStorage } from "utils/localstorage"
-import Seat from "./Seat"
 import { useHistory } from "react-router-dom"
 
 import { getCredentials, setCredentials } from "utils/credentials"
-import { ILobby, IPlayerInLobby, IPlayerWithCredentials, IStoredCredentials } from "types"
+import { GameSession, PlayerInSession, PlayerWithCredentials, StoredCredentials } from "types"
 
 type RouteParams = {
   gameID: string
 }
 
-type LobbyProps = {
+type SessionProps = {
   match: match<RouteParams>
 }
 
-const PlayersList: React.FC<{ players: IPlayerInLobby[] }> = ({ players }) => (
+const PlayersList: React.FC<{ players: PlayerInSession[] }> = ({ players }) => (
   <React.Fragment>
     <h2 className="text-xl leading-none">Players</h2>
     <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
@@ -57,19 +56,19 @@ const JoinForm: React.FC<{ joinLobby: (name: string) => void }> = ({ joinLobby }
       />
 
       <Button className="bg-primary" onClick={() => joinLobby(name)}>
-        Join Lobby
+        Join Session
       </Button>
     </React.Fragment>
   )
 }
 
-const Lobby: React.FC<LobbyProps> = ({ match }) => {
+const Session: React.FC<SessionProps> = ({ match }) => {
   const gameID = match.params.gameID
   const history = useHistory()
 
-  const [loadLobby, loadError, loadingLobby] = useLobbyApi("load")
-  const [joinLobby, joinError, joiningLobby] = useLobbyApi("join")
-  const [playersInLobby, setPlayersInLobby] = useState<IPlayerInLobby[]>([])
+  const [loadLobby, loadError, loadingLobby] = useSession("load")
+  const [joinLobby, joinError, joiningLobby] = useSession("join")
+  const [playersInLobby, setPlayersInLobby] = useState<PlayerInSession[]>([])
 
   const [name, setName] = useState("")
   const [hasJoined, setHasJoined] = useState(false)
@@ -94,7 +93,7 @@ const Lobby: React.FC<LobbyProps> = ({ match }) => {
       setCredentials(gameID, {
         id,
         name,
-        credential: playerCredentials,
+        credentials: playerCredentials,
       })
     } catch (err) {
       console.error(err)
@@ -123,7 +122,7 @@ const Lobby: React.FC<LobbyProps> = ({ match }) => {
       </nav>
 
       <div className="mx-auto my-8 p-4 max-w-2xl text-dark flex flex-col items-center">
-        <h2 className="text-xl leading-none">Lobby ID</h2>
+        <h2 className="text-xl leading-none">Session ID</h2>
 
         <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
@@ -134,7 +133,7 @@ const Lobby: React.FC<LobbyProps> = ({ match }) => {
         ) : loadingLobby ? (
           <div>Loading...</div>
         ) : loadError ? (
-          <div className="text-red-600">Error loading lobby. Try a different Lobby ID.</div>
+          <div className="text-red-600">Error loading lobby. Try a different Session ID.</div>
         ) : (
           <JoinForm joinLobby={join} />
         )}
@@ -143,4 +142,4 @@ const Lobby: React.FC<LobbyProps> = ({ match }) => {
   )
 }
 
-export default Lobby
+export default Session
