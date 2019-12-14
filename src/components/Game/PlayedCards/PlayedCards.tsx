@@ -18,7 +18,7 @@ type PlayedCardProps = {
 
 const PlayedCards: React.FC<PlayedCardProps> = (props) => {
   const inModal = typeof props.focusCard === "number"
-  const shouldRevealCards = props.players.every(({ status }) => status === "vote")
+  const shouldRevealCards = !props.players.some(({ status }) => status === "play")
 
   const VoteButton = (playedCard: PlayedCard) =>
     playedCard.player !== props.playerID ? (
@@ -47,7 +47,7 @@ const PlayedCards: React.FC<PlayedCardProps> = (props) => {
                   onClick={() => props.onCardClick && props.onCardClick(i)}
                 />
 
-                {inModal && props.canVote && VoteButton(pc) && <div className="m-4"></div>}
+                {inModal && props.canVote ? VoteButton(pc) : <div className="m-4"></div>}
               </React.Fragment>
             ) : (
               <Card key={i} width={props.cardWidth} height={props.cardHeight} />
