@@ -1,7 +1,7 @@
 import { PlayerWithCredentials, StoredCredentials } from "types"
 
 export const getCredentialsForGame: (gameID: string) => PlayerWithCredentials | undefined = (gameID) => {
-  const credentials = <StoredCredentials>JSON.parse(localStorage.getItem("credentials") || "{}")
+  const credentials = JSON.parse(localStorage.getItem("credentials") || "{}") as StoredCredentials
   return credentials[gameID]
 }
 
@@ -9,7 +9,7 @@ export const storeCredentialsForGame: (gameID: string, playerCredentials: Player
   gameID,
   playerCredentials,
 ) => {
-  const credentials = <StoredCredentials>JSON.parse(localStorage.getItem("credentials") || "{}")
+  const credentials = JSON.parse(localStorage.getItem("credentials") || "{}") as StoredCredentials
   credentials[gameID] = playerCredentials
   localStorage.setItem("credentials", JSON.stringify(credentials))
 }

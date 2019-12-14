@@ -23,6 +23,7 @@ const Game: React.FC<GameProps> = ({ match }) => {
   const history = useHistory()
   const [load, loadError, isLoading] = useSessionApi("load")
   const [hasError, setHasError] = useState(false)
+  const [credentials, setCredentials] = useState("")
 
   const loadGame = async () => {
     try {
@@ -31,9 +32,11 @@ const Game: React.FC<GameProps> = ({ match }) => {
 
       // if any players don't have a name assigned (incomplete setup)
       // or stored id doesn't match current id, can't join game
-      setHasError(
-        players.some(({ name }) => name === undefined) || !storedCredentials || storedCredentials.id !== +playerID,
-      )
+      if (players.some(({ name }) => name === undefined) || !storedCredentials || storedCredentials.id !== +playerID) {
+        setHasError(true)
+      } else {
+        setCredentials(storedCredentials.credentials)
+      }
     } catch (err) {
       setHasError(true)
     }
@@ -61,7 +64,12 @@ const Game: React.FC<GameProps> = ({ match }) => {
       </div>
     </React.Fragment>
   ) : (
-    <ClientComponent gameID={match.params.gameID} playerID={match.params.playerID} debug={true} />
+    <ClientComponent
+      gameID={match.params.gameID}
+      playerID={match.params.playerID}
+      credentials={credentials}
+      debug={false}
+    />
   )
 }
 
