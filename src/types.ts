@@ -30,7 +30,7 @@ export interface PlayerInSession {
 }
 
 export interface PlayerWithCredentials extends PlayerInSession {
-  credential: string
+  credentials: string
 }
 
 export interface StoredCredentials {

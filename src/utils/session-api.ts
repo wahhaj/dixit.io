@@ -8,7 +8,7 @@ interface ApiEndpoint {
   join: (gameID: string, playerID: number, playerName: string) => Promise<{ playerCredentials: string }>
 }
 
-export const useSession: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpoint[K], boolean, boolean] = (
+export const useSessionApi: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpoint[K], boolean, boolean] = (
   apiName,
 ) => {
   const [isLoading, setIsLoading] = useState(true)

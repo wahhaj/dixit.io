@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react"
-import Button from "components/Button"
-import Input from "components/Input"
-import logo from "logo.png"
 import { match } from "react-router-dom"
-// import Join from "./Join"
-import { LOBBY_URL } from "utils/config"
-import { useSession } from "utils/session-api"
-import { useLocalStorage } from "utils/localstorage"
 import { useHistory } from "react-router-dom"
-
-import { getCredentials, setCredentials } from "utils/credentials"
-import { GameSession, PlayerInSession, PlayerWithCredentials, StoredCredentials } from "types"
+import { useSessionApi } from "utils/session-api"
+import PlayersList from "./PlayerList"
+import JoinForm from "./JoinForm"
+import logo from "logo.png"
+import { getCredentialsForGame } from "utils/credentials"
+import { PlayerInSession } from "types"
 
 type RouteParams = {
   gameID: string
@@ -20,100 +16,43 @@ type SessionProps = {
   match: match<RouteParams>
 }
 
-const PlayersList: React.FC<{ players: PlayerInSession[] }> = ({ players }) => (
-  <React.Fragment>
-    <h2 className="text-xl leading-none">Players</h2>
-    <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
-    <ul className="text-center">
-      {players.map(({ name }, i) =>
-        name ? (
-          <li className="text-xl mb-4" key={i}>
-            {name}
-          </li>
-        ) : (
-          <li className="text-gray-600 mb-4" key={i}>
-            Waiting for player...
-          </li>
-        ),
-      )}
-    </ul>
-  </React.Fragment>
-)
-
-const JoinForm: React.FC<{ joinLobby: (name: string) => void }> = ({ joinLobby }) => {
-  const [name, setName] = useState("")
-
-  return (
-    <React.Fragment>
-      <h2 className="text-xl leading-none">Join lobby</h2>
-      <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
-      <Input
-        id="name"
-        label="Your Name"
-        placeholder="John Smith"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <Button className="bg-primary" onClick={() => joinLobby(name)}>
-        Join Session
-      </Button>
-    </React.Fragment>
-  )
-}
-
 const Session: React.FC<SessionProps> = ({ match }) => {
   const gameID = match.params.gameID
   const history = useHistory()
 
-  const [loadLobby, loadError, loadingLobby] = useSession("load")
-  const [joinLobby, joinError, joiningLobby] = useSession("join")
-  const [playersInLobby, setPlayersInLobby] = useState<PlayerInSession[]>([])
-
-  const [name, setName] = useState("")
+  const [loadSession, loadError, loading] = useSessionApi("load")
+  const [playersInSession, setPlayersInSession] = useState<PlayerInSession[]>([])
   const [hasJoined, setHasJoined] = useState(false)
   const [timer, setTimer] = useState<number>()
 
-  const getPlayersInLobby = async () => {
+  const loadPlayersInSession = async () => {
     try {
-      const { players } = await loadLobby(gameID)
-      setPlayersInLobby(players)
-    } catch (err) {
-      console.error(err)
-    }
-  }
+      const { players } = await loadSession(gameID)
+      setPlayersInSession(players)
 
-  const join = async (name: string) => {
-    try {
-      const id = (playersInLobby.find(({ name }) => name === undefined) || playersInLobby[0]).id
-      const { playerCredentials } = await joinLobby(gameID, id, name)
-
-      setHasJoined(true)
-
-      setCredentials(gameID, {
-        id,
-        name,
-        credentials: playerCredentials,
-      })
+      if (!hasJoined && !loadError && getCredentialsForGame(gameID)) {
+        setHasJoined(true)
+      }
     } catch (err) {
       console.error(err)
     }
   }
 
   useEffect(() => {
-    getPlayersInLobby()
+    loadPlayersInSession()
 
-    if (getCredentials(gameID)) {
-      setHasJoined(true)
-      if (timer === undefined) {
-        // setTimer(setInterval(loadPlayers, 2000) as any)
-      }
+    // start polling for players in session every 2 seconds
+    if (hasJoined && timer === undefined) {
+      const timer = setInterval(loadPlayersInSession, 2000)
+      setTimer(timer as any)
     }
+  }, [hasJoined])
 
+  useEffect(() => {
     return function cleanup() {
       clearInterval(timer)
     }
-  }, [hasJoined])
+  }, [timer])
 
   return (
     <React.Fragment>
@@ -122,20 +61,18 @@ const Session: React.FC<SessionProps> = ({ match }) => {
       </nav>
 
       <div className="mx-auto my-8 p-4 max-w-2xl text-dark flex flex-col items-center">
-        <h2 className="text-xl leading-none">Session ID</h2>
-
+        <h2 className="text-xl leading-none">Game ID</h2>
         <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
-
         <p className="text-xl mb-16">{gameID}</p>
 
         {hasJoined ? (
-          <PlayersList players={playersInLobby} />
-        ) : loadingLobby ? (
+          <PlayersList players={playersInSession} />
+        ) : loading ? (
           <div>Loading...</div>
         ) : loadError ? (
-          <div className="text-red-600">Error loading lobby. Try a different Session ID.</div>
+          <div className="text-red-600">Error loading game. Try a different Game ID.</div>
         ) : (
-          <JoinForm joinLobby={join} />
+          <JoinForm gameID={gameID} players={playersInSession} onSubmit={() => setHasJoined(true)} />
         )}
       </div>
     </React.Fragment>

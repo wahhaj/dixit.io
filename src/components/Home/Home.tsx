@@ -3,15 +3,15 @@ import Button from "components/Button"
 import Input from "components/Input"
 import logo from "logo.png"
 import { useHistory } from "react-router-dom"
-import { useSession } from "utils/session-api"
+import { useSessionApi } from "utils/session-api"
 
 const Home: React.FC = () => {
   const history = useHistory()
   const [numPlayers, setNumPlayers] = useState(4)
   const [gameID, setGameID] = useState("")
 
-  const [newGame, newError] = useSession("create")
-  const [joinGame, joinError] = useSession("load")
+  const [newGame, newError] = useSessionApi("create")
+  const [loadGame, loadError] = useSessionApi("load")
 
   return (
     <React.Fragment>
@@ -64,7 +64,7 @@ const Home: React.FC = () => {
         </section>
 
         <section className="flex flex-col items-center">
-          <h2 className="text-xl leading-none">Join Existing Game</h2>
+          <h2 className="text-xl leading-none">Load Existing Game</h2>
 
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
@@ -73,18 +73,18 @@ const Home: React.FC = () => {
             label="Game ID"
             placeholder="ABC123"
             value={gameID}
-            hasError={joinError}
+            hasError={loadError}
             onChange={(e) => setGameID(e.target.value)}
           />
 
-          {joinError && <div className="text-red-600 mb-2">Error joining game. Try a different Game ID.</div>}
+          {loadError && <div className="text-red-600 mb-2">Error loading game. Try a different Game ID.</div>}
 
           <Button
             className="bg-primary"
             onClick={async () => {
               if (gameID.length) {
                 try {
-                  const { id } = await joinGame(gameID)
+                  const { id } = await loadGame(gameID)
                   history.push(`/${id}`)
                 } catch (err) {
                   console.error(err)
@@ -92,7 +92,7 @@ const Home: React.FC = () => {
               }
             }}
           >
-            Join Game
+            Load Game
           </Button>
         </section>
       </div>

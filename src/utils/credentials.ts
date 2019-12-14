@@ -1,27 +1,15 @@
-import { useEffect, useState } from "react"
-import { IPlayerWithCredentials, IStoredCredentials } from "types"
+import { PlayerWithCredentials, StoredCredentials } from "types"
 
-export type PlayerCredential = {
-  id: number
-  name?: string
-  credential?: string
+export const getCredentialsForGame: (gameID: string) => PlayerWithCredentials | undefined = (gameID) => {
+  const credentials = <StoredCredentials>JSON.parse(localStorage.getItem("credentials") || "{}")
+  return credentials[gameID]
 }
 
-type StoredCredentials = {
-  [gameID: string]: PlayerCredential
-}
-
-export const getCredentials: (gameID: string) => IPlayerWithCredentials | undefined = (gameID) => {
-  const ls = localStorage.getItem("credentials")
-
-  if (ls) {
-    return (<IStoredCredentials>JSON.parse(ls))[gameID]
-  }
-}
-
-export const setCredentials: (gameID: string, credential: IPlayerWithCredentials) => void = (gameID, credential) => {
-  const existingCredentials = <StoredCredentials>JSON.parse(<string>localStorage.getItem("credentials"))
-  const newCredentials = { ...existingCredentials }
-  newCredentials[gameID] = credential
-  localStorage.setItem("credentials", JSON.stringify(newCredentials))
+export const storeCredentialsForGame: (gameID: string, playerCredentials: PlayerWithCredentials) => void = (
+  gameID,
+  playerCredentials,
+) => {
+  const credentials = <StoredCredentials>JSON.parse(localStorage.getItem("credentials") || "{}")
+  credentials[gameID] = playerCredentials
+  localStorage.setItem("credentials", JSON.stringify(credentials))
 }
