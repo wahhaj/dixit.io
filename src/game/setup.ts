@@ -2,7 +2,7 @@ import { GameContext } from "boardgame.io/core"
 import { GameState } from "types"
 import { DECK_SIZE } from "../utils/config"
 
-export default function setup({ numPlayers, random }: GameContext): GameState {
+const setup: (ctx: GameContext) => GameState = ({ numPlayers, random }) => {
   const deck: GameState["deck"] = random.Shuffle(Array.from(Array(DECK_SIZE), (e, i) => i))
 
   const numCardsInHand = numPlayers === 3 ? 7 : 6
@@ -21,3 +21,5 @@ export default function setup({ numPlayers, random }: GameContext): GameState {
     numVotes: 0,
   }
 }
+
+export default setup

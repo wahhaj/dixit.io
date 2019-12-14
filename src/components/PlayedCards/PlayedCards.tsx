@@ -2,11 +2,11 @@ import React from "react"
 import Card from "components/Card"
 import Button from "components/Button"
 import { PlayedCard } from "types"
-import { IGameCtx } from "boardgame.io/core"
+import { GameContext } from "boardgame.io/core"
 
 type PlayedCardProps = {
   playedCards: PlayedCard[]
-  activePlayers: IGameCtx["activePlayers"]
+  activePlayers: GameContext["activePlayers"]
   playerID?: number
   canVote: boolean
   onVote?: (card: number) => void

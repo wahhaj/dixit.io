@@ -1,5 +1,5 @@
 import React from "react"
-import { IPlayerInGame, IPlayerInLobby } from "types"
+import { Player, PlayerInSession } from "types"
 import Score from "./Score"
 
 type ScoreBoardProps = {

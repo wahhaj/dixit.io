@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { GameState, PlayerInSession } from "types"
-import { IGameCtx } from "boardgame.io/core"
+import { GameContext } from "boardgame.io/core"
 import Navbar from "./Navbar"
 import Status from "components/Board/Status"
 import Section from "./Section"
@@ -12,7 +12,7 @@ import styles from "./Board.module.css"
 
 type BoardProps = {
   G: GameState
-  ctx: IGameCtx
+  ctx: GameContext
   moves: Record<string, (...args: any[]) => void>
   gameID: string
   playerID: string

@@ -1,10 +1,10 @@
 import React from "react"
 import { Player } from "types"
-import { IGameCtx } from "boardgame.io/core"
+import { GameContext } from "boardgame.io/core"
 
 type StatusProps = {
   playerID: number
-  activePlayers: IGameCtx["activePlayers"]
+  activePlayers: GameContext["activePlayers"]
   playerNames: string[]
 }
 
