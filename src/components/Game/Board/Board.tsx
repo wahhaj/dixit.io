@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { GameState, Player, PlayerInSession } from "types"
+import { GameState, Player, PlayerInSession, Move } from "types"
 import { GameContext } from "boardgame.io/core"
 import Navbar from "./Navbar"
 import Status from "components/Game/Board/Status"
@@ -13,7 +13,7 @@ import styles from "./Board.module.css"
 type BoardProps = {
   G: GameState
   ctx: GameContext
-  moves: Record<string, (...args: any[]) => void>
+  moves: Record<Move, (...args: any[]) => void>
 
   gameID: string
   playerID: string
@@ -39,8 +39,6 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
   })
   const player = players[+playerID]
 
-  const playerNames = players.map(({ name }) => name)
-
   const canPlay = players[+playerID].status === "play"
   const canVote = players[+playerID].status === "vote"
 
@@ -55,13 +53,13 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
         <ScoreBoard players={players} />
       </Section>
 
-      <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
+      <Section title="Played Cards" type="played" currentView={view} className={styles.played}>
         <CardContainer numCards={G.playedCards.length}>
           <PlayedCards
             playedCards={G.playedCards}
-            activePlayers={ctx.activePlayers}
-            playerID={+playerID}
-            canVote={canVote}
+            players={players}
+            playerID={player.id}
+            canVote={player.status === "vote"}
             onVote={moves.vote}
           />
         </CardContainer>

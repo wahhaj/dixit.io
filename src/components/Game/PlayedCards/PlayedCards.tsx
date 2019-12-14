@@ -1,15 +1,14 @@
 import React from "react"
 import Card from "components/Game/Card"
 import Button from "components/Button"
-import { PlayedCard } from "types"
-import { GameContext } from "boardgame.io/core"
+import { PlayedCard, Player } from "types"
 
 type PlayedCardProps = {
   playedCards: PlayedCard[]
-  activePlayers: GameContext["activePlayers"]
-  playerID?: number
+  players: Player[]
+  playerID: number
   canVote: boolean
-  onVote?: (card: number) => void
+  onVote: (card: number) => void
 
   cardWidth?: number
   cardHeight?: number
@@ -19,7 +18,7 @@ type PlayedCardProps = {
 
 const PlayedCards: React.FC<PlayedCardProps> = (props) => {
   const inModal = typeof props.focusCard === "number"
-  const shouldRevealCards = Object.values(props.activePlayers).every((state) => state === "vote")
+  const shouldRevealCards = props.players.every(({ status }) => status === "vote")
 
   const VoteButton = (playedCard: PlayedCard) =>
     playedCard.player !== props.playerID ? (
@@ -55,7 +54,9 @@ const PlayedCards: React.FC<PlayedCardProps> = (props) => {
             ),
           )
       ) : (
-        <p>Waiting for {Object.keys(props.activePlayers)[0]} to play their card.</p>
+        <p>
+          Waiting for {(props.players.find(({ status }) => status === "play") as Player).name} to play the first card
+        </p>
       )}
     </React.Fragment>
   )

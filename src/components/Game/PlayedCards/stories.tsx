@@ -1,16 +1,47 @@
 import React from "react"
 import PlayedCards from "./PlayedCards"
+import { Player } from "types"
+import { action } from "@storybook/addon-actions"
 
 export default {
   title: "PlayedCards",
   component: PlayedCards,
 }
 
-export const empty = () => <PlayedCards canVote={false} playedCards={[]} activePlayers={{}} />
+const players: Player[] = [
+  {
+    id: 0,
+    name: "A",
+    score: 5,
+    hand: [],
+    status: "play",
+  },
+  {
+    id: 1,
+    name: "B",
+    score: 10,
+    hand: [],
+  },
+  {
+    id: 2,
+    name: "C",
+    score: 15,
+    hand: [],
+  },
+]
+
+export const empty = () => (
+  <PlayedCards
+    playedCards={[]}
+    players={players}
+    playerID={0}
+    canVote={false}
+    onVote={(card) => action("Voted for: " + card)}
+  />
+)
 
 export const hidden = () => (
   <PlayedCards
-    canVote={false}
     playedCards={[
       {
         player: 0,
@@ -18,16 +49,15 @@ export const hidden = () => (
         votes: [],
       },
     ]}
-    activePlayers={{
-      "1": "play",
-      "2": "play",
-    }}
+    players={players}
+    playerID={0}
+    canVote={false}
+    onVote={(card) => action("Voted for: " + card)}
   />
 )
 
 export const shown = () => (
   <PlayedCards
-    canVote={false}
     playedCards={[
       {
         player: 0,
@@ -50,10 +80,9 @@ export const shown = () => (
         votes: [],
       },
     ]}
-    activePlayers={{
-      "1": "vote",
-      "2": "vote",
-      "3": "vote",
-    }}
+    players={players.map((player) => ({ ...player, status: "vote" }))}
+    playerID={0}
+    canVote={false}
+    onVote={(card) => action("Voted for: " + card)}
   />
 )
