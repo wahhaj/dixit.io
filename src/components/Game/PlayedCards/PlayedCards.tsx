@@ -14,6 +14,7 @@ type PlayedCardProps = {
   cardHeight?: number
   focusCard?: number
   onCardClick?: React.Dispatch<React.SetStateAction<number>>
+  closeModal?: () => void
 }
 
 const PlayedCards: React.FC<PlayedCardProps> = (props) => {
@@ -24,7 +25,10 @@ const PlayedCards: React.FC<PlayedCardProps> = (props) => {
     playedCard.player !== props.playerID ? (
       <Button
         className="text-xl text-dark bg-primary m-4"
-        onClick={() => props.onVote && props.onVote(props.focusCard!)}
+        onClick={() => {
+          props.onVote && props.onVote(props.focusCard!)
+          props.closeModal && props.closeModal()
+        }}
       >
         Vote
       </Button>

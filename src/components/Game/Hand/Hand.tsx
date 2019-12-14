@@ -12,13 +12,20 @@ type HandProps = {
   cardHeight?: number
   focusCard?: number
   onCardClick?: React.Dispatch<React.SetStateAction<number>>
+  closeModal?: () => void
 }
 
 const Hand: React.FC<HandProps> = (props) => {
   const inModal = typeof props.focusCard === "number"
 
   const PlayButton = (
-    <Button className="text-xl text-dark bg-primary m-4" onClick={() => props.onPlay && props.onPlay(props.focusCard!)}>
+    <Button
+      className="text-xl text-dark bg-primary m-4"
+      onClick={() => {
+        props.onPlay && props.onPlay(props.focusCard!)
+        props.closeModal && props.closeModal()
+      }}
+    >
       Play
     </Button>
   )

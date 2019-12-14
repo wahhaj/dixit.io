@@ -26,7 +26,7 @@ const CardResizer: React.FC<ModalProps> = (props) => {
       </div>
 
       <animated.div style={scaleUp} className="flex-1 flex flex-col items-center justify-center mx-8">
-        {cloneElement(props.children, { focusCard: props.focusCard })}
+        {cloneElement(props.children, { focusCard: props.focusCard, closeModal: props.closeModal })}
       </animated.div>
 
       <Button
