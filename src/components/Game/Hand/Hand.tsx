@@ -1,12 +1,12 @@
 import React from "react"
 import Card from "components/Game/Card"
-import { Player } from "types"
+import { PlayerState } from "types"
 import Button from "components/Button"
 
 type HandProps = {
-  cards: Player["hand"]
+  cards: PlayerState["hand"]
   canPlay: boolean
-  onPlay?: (card: number) => void
+  onPlay: (card: number) => void
 
   cardWidth?: number
   cardHeight?: number

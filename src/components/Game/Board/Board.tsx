@@ -39,9 +39,6 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
   })
   const player = players[+playerID]
 
-  const canPlay = players[+playerID].status === "play"
-  const canVote = players[+playerID].status === "vote"
-
   return (
     <div className={styles.board}>
       <div className={styles.header}>
@@ -65,9 +62,9 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
         </CardContainer>
       </Section>
 
-      <Section title="Your Hand" type="hand" currentView={view} className={`${styles.hand}`}>
+      <Section title="Your Hand" type="hand" currentView={view} className={styles.hand}>
         <CardContainer numCards={player.hand.length}>
-          <Hand cards={player.hand} canPlay={canPlay} onPlay={moves.play} />
+          <Hand cards={player.hand} canPlay={player.status === "play"} onPlay={moves.play} />
         </CardContainer>
       </Section>
     </div>
