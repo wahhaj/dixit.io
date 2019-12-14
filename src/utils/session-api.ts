@@ -2,13 +2,13 @@ import { useState } from "react"
 import { LOBBY_URL } from "utils/config"
 import { GameSession } from "types"
 
-type ApiEndpoint = {
+interface ApiEndpoint {
   create: (numPlayers: number) => Promise<{ gameID: string }>
   load: (gameID: string) => Promise<GameSession>
   join: (gameID: string, playerID: number, playerName: string) => Promise<{ playerCredentials: string }>
 }
 
-export const useLobbyApi: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpoint[K], boolean, boolean] = (
+export const useSession: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEndpoint[K], boolean, boolean] = (
   apiName,
 ) => {
   const [isLoading, setIsLoading] = useState(true)

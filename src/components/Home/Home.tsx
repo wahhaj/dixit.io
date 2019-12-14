@@ -3,27 +3,27 @@ import Button from "components/Button"
 import Input from "components/Input"
 import logo from "logo.png"
 import { useHistory } from "react-router-dom"
-import { useLobbyApi } from "utils/lobby-api"
+import { useSession } from "utils/session-api"
 
 const Home: React.FC = () => {
   const history = useHistory()
   const [numPlayers, setNumPlayers] = useState(4)
   const [gameID, setGameID] = useState("")
 
-  const [createLobby, createError] = useLobbyApi("create")
-  const [loadLobby, loadError] = useLobbyApi("load")
+  const [newGame, newError] = useSession("create")
+  const [joinGame, joinError] = useSession("load")
 
   return (
-    <div>
+    <React.Fragment>
       <nav className="bg-dark p-2 text-center">
         <img src={logo} alt="Dixit" className="h-8 md:h-12 mx-auto" />
       </nav>
 
-      <div className="text-dark p-8">
+      <div className="mx-auto my-8 p-4 max-w-2xl text-dark">
         <h1 className="font-bold text-2xl text-center mb-6">Welcome to Dixit.io!</h1>
 
-        <div className="mx-auto max-w-2xl mb-16 flex flex-col items-center">
-          <h2 className="text-xl leading-none">Create a new lobby</h2>
+        <section className="flex flex-col items-center mb-16">
+          <h2 className="text-xl leading-none">Start New Game</h2>
 
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
@@ -46,57 +46,57 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          {createError && <div className="text-red-600 mb-2">Error creating lobby. Try again.</div>}
+          {newError && <div className="text-red-600 mb-2">Error starting game. Try again.</div>}
 
           <Button
             className="bg-primary"
             onClick={async () => {
               try {
-                let { gameID } = await createLobby(numPlayers)
+                let { gameID } = await newGame(numPlayers)
                 history.push(`/${gameID}`)
               } catch (err) {
                 console.error(err)
               }
             }}
           >
-            Create Lobby
+            Start Game
           </Button>
-        </div>
+        </section>
 
-        <div className="mx-auto max-w-2xl flex flex-col items-center">
-          <h2 className="text-xl leading-none">Join existing lobby</h2>
+        <section className="flex flex-col items-center">
+          <h2 className="text-xl leading-none">Join Existing Game</h2>
 
           <hr className="w-48 max-w-full mt-2 mb-4 mx-auto" />
 
           <Input
-            id="lobby-id"
-            label="Lobby ID"
-            placeholder="Abc1234"
+            id="game-id"
+            label="Game ID"
+            placeholder="ABC123"
             value={gameID}
-            hasError={loadError}
+            hasError={joinError}
             onChange={(e) => setGameID(e.target.value)}
           />
 
-          {loadError && <div className="text-red-600 mb-2">Error loading lobby. Try a different Lobby ID.</div>}
+          {joinError && <div className="text-red-600 mb-2">Error joining game. Try a different Game ID.</div>}
 
           <Button
             className="bg-primary"
             onClick={async () => {
               if (gameID.length) {
                 try {
-                  const { roomID } = await loadLobby(gameID)
-                  history.push(`/${roomID}`)
+                  const { id } = await joinGame(gameID)
+                  history.push(`/${id}`)
                 } catch (err) {
                   console.error(err)
                 }
               }
             }}
           >
-            Join Lobby
+            Join Game
           </Button>
-        </div>
+        </section>
       </div>
-    </div>
+    </React.Fragment>
   )
 }
 
