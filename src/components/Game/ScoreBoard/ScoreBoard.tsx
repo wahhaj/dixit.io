@@ -1,16 +1,15 @@
 import React from "react"
-import { Player, PlayerInSession } from "types"
+import { Player } from "types"
 import Score from "./Score"
 
 type ScoreBoardProps = {
-  playerNames: string[]
-  scores: number[]
+  players: Player[]
 }
 
-const Scores: React.FC<ScoreBoardProps> = ({ playerNames, scores }) => (
+const Scores: React.FC<ScoreBoardProps> = ({ players }) => (
   <React.Fragment>
-    {scores.map((score, i) => (
-      <Score name={playerNames[i]} score={score} color={i} key={i} />
+    {players.map(({ id, name, score }) => (
+      <Score name={name} score={score} color={id} key={id} />
     ))}
   </React.Fragment>
 )

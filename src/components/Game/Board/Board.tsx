@@ -37,7 +37,6 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
       status: ctx.activePlayers[i],
     }
   })
-
   const player = players[+playerID]
 
   const playerNames = players.map(({ name }) => name)
@@ -53,7 +52,7 @@ const Board: React.FC<BoardProps> = ({ G, ctx, moves, playerID, gameMetadata }) 
       </div>
 
       <Section title="Player List" type="scores" currentView={view} className={`shadow ${styles.scores}`}>
-        <ScoreBoard scores={G.players.map(({ score }) => score)} playerNames={playerNames} />
+        <ScoreBoard players={players} />
       </Section>
 
       <Section title="Played Cards" type="played" currentView={view} className={`${styles.played}`}>
