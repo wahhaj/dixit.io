@@ -1,7 +1,7 @@
 import React, { cloneElement, useState, useEffect } from "react"
 import { Portal } from "react-portal"
 import ReactResizeDetector from "react-resize-detector"
-import Modal from "components/CardContainer/Modal"
+import Modal from "components/Game/CardContainer/Modal"
 
 type CardContainerProps = {
   numCards: number

@@ -1,24 +1,31 @@
 import React from "react"
-import Card from "components/Card"
-import { Player } from "types"
+import Card from "components/Game/Card"
+import { PlayerState } from "types"
 import Button from "components/Button"
 
 type HandProps = {
-  cards: Player["hand"]
+  cards: PlayerState["hand"]
   canPlay: boolean
-  onPlay?: (card: number) => void
+  onPlay: (card: number) => void
 
   cardWidth?: number
   cardHeight?: number
   focusCard?: number
   onCardClick?: React.Dispatch<React.SetStateAction<number>>
+  closeModal?: () => void
 }
 
 const Hand: React.FC<HandProps> = (props) => {
   const inModal = typeof props.focusCard === "number"
 
   const PlayButton = (
-    <Button className="text-xl text-dark bg-primary m-4" onClick={() => props.onPlay && props.onPlay(props.focusCard!)}>
+    <Button
+      className="text-xl text-dark bg-primary m-4"
+      onClick={() => {
+        props.onPlay && props.onPlay(props.focusCard!)
+        props.closeModal && props.closeModal()
+      }}
+    >
       Play
     </Button>
   )
@@ -37,7 +44,7 @@ const Hand: React.FC<HandProps> = (props) => {
           />
         ))}
 
-      {inModal && props.canPlay && PlayButton && <div className="m-4"></div>}
+      {inModal ? props.canPlay ? PlayButton : <div className="m-4"></div> : null}
     </React.Fragment>
   )
 }

@@ -11,15 +11,14 @@ declare module "boardgame.io/core" {
   interface GameContext {
     numPlayers: number
     turn: number
+    activePlayers: Record<string, import("types").Move>
+
     playerID: string
     currentPlayer: string
-    playOrder: string[]
-    playOrderPos: number
-    activePlayers: Record<string, string>
-    gameover: any
 
-    random: Random
     events: Events
+    gameover: any
+    random: Random
   }
 
   export const INVALID_MOVE: string

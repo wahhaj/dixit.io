@@ -28,10 +28,16 @@ const Session: React.FC<SessionProps> = ({ match }) => {
   const loadPlayersInSession = async () => {
     try {
       const { players } = await loadSession(gameID)
+      const credentials = getCredentialsForGame(gameID)
       setPlayersInSession(players)
 
-      if (!hasJoined && !loadError && getCredentialsForGame(gameID)) {
+      if (!loadError && credentials) {
         setHasJoined(true)
+
+        // if all seats have been claimed, start game
+        if (players.filter(({ name }) => name === undefined).length === 0) {
+          history.push(`/${gameID}/${credentials.id}`)
+        }
       }
     } catch (err) {
       console.error(err)
@@ -42,11 +48,11 @@ const Session: React.FC<SessionProps> = ({ match }) => {
     loadPlayersInSession()
 
     // start polling for players in session every 2 seconds
-    if (hasJoined && timer === undefined) {
+    if (timer === undefined) {
       const timer = setInterval(loadPlayersInSession, 2000)
       setTimer(timer as any)
     }
-  }, [hasJoined])
+  }, [])
 
   useEffect(() => {
     return function cleanup() {
@@ -67,12 +73,17 @@ const Session: React.FC<SessionProps> = ({ match }) => {
 
         {hasJoined ? (
           <PlayersList players={playersInSession} />
-        ) : loading ? (
-          <div>Loading...</div>
         ) : loadError ? (
           <div className="text-red-600">Error loading game. Try a different Game ID.</div>
         ) : (
-          <JoinForm gameID={gameID} players={playersInSession} onSubmit={() => setHasJoined(true)} />
+          <JoinForm
+            gameID={gameID}
+            players={playersInSession}
+            onSubmit={() => {
+              loadPlayersInSession()
+              setHasJoined(true)
+            }}
+          />
         )}
       </div>
     </React.Fragment>

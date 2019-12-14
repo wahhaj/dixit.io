@@ -12,7 +12,7 @@ type ModalProps = {
 
 const CardResizer: React.FC<ModalProps> = (props) => {
   const fadeIn = useSpring({ opacity: 1, from: { opacity: 0 }, config: { duration: 100 } })
-  const scaleUp = useSpring({ transform: "scale(1)", from: { transform: "scale(0.5)" }, config: config.wobbly })
+  const scaleUp = useSpring({ transform: "scale(1)", from: { transform: "scale(0.5)" }, config: { duration: 100 } })
   const buttonClasses = "w-12 h-12 text-4xl text-dark bg-primary leading-none rounded-full"
 
   return (
@@ -26,7 +26,7 @@ const CardResizer: React.FC<ModalProps> = (props) => {
       </div>
 
       <animated.div style={scaleUp} className="flex-1 flex flex-col items-center justify-center mx-8">
-        {cloneElement(props.children, { focusCard: props.focusCard })}
+        {cloneElement(props.children, { focusCard: props.focusCard, closeModal: props.closeModal })}
       </animated.div>
 
       <Button
