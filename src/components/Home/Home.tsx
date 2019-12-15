@@ -84,8 +84,8 @@ const Home: React.FC = () => {
             onClick={async () => {
               if (gameID.length) {
                 try {
-                  const { id } = await loadGame(gameID)
-                  history.push(`/${id}`)
+                  await loadGame(gameID)
+                  history.push(`/${gameID}`)
                 } catch (err) {
                   console.error(err)
                 }
