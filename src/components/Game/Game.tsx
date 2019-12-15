@@ -6,6 +6,7 @@ import { match, useHistory } from "react-router-dom"
 import Board from "components/Game/Board"
 import { getCredentialsForGame } from "utils/credentials"
 import { useSessionApi } from "utils/session-api"
+import { API_URL } from "utils/config"
 import logo from "logo.png"
 
 type RouteParams = {
@@ -49,7 +50,7 @@ const Game: React.FC<GameProps> = ({ match }) => {
   const ClientComponent = Client({
     game: Dixit,
     board: Board,
-    multiplayer: SocketIO({ server: "localhost:8000" }),
+    multiplayer: SocketIO({ server: API_URL }),
   })
 
   return isLoading || hasError ? (

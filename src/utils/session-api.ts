@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { LOBBY_URL } from "utils/config"
+import { API_URL } from "utils/config"
 import { GameSession } from "types"
 
 interface ApiEndpoint {
@@ -27,14 +27,14 @@ export const useSessionApi: <K extends keyof ApiEndpoint>(apiName: K) => [ApiEnd
 
   const get: (endpoint: string) => Promise<any> = async (endpoint) => {
     setIsLoading(true)
-    const response = await fetch(`${LOBBY_URL}/games/dixit/${endpoint}`)
+    const response = await fetch(`${API_URL}/games/dixit/${endpoint}`)
     return handleResponse(response)
   }
 
   const post: (endpoint: string, body: Record<string, string | number>) => Promise<any> = async (endpoint, body) => {
     setIsLoading(true)
 
-    const response = await fetch(`${LOBBY_URL}/games/dixit/${endpoint}`, {
+    const response = await fetch(`${API_URL}/games/dixit/${endpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
